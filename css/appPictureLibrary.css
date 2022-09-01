@@ -1,11 +1,11 @@
 html,
 body {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 input {
-  display:none;
+  display: none;
 }
 .container {
   width: 100%;
@@ -13,13 +13,13 @@ input {
 }
 h1 {
   text-align: center;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 35px;
   position: relative;
   margin: 40px 0;
 }
 h1::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 100px;
   height: 3px;
@@ -30,13 +30,13 @@ h1::before {
   animation: animate 4s linear infinite;
 }
 @keyframes animate {
-  0%{
+  0% {
     width: 100px;
   }
-  50%{
+  50% {
     width: 200px;
   }
-  100%{
+  100% {
     width: 100px;
   }
 }
@@ -47,7 +47,7 @@ h1::before {
   height: 60px;
   display: flex;
   align-items: center;
-  border-radius:5px;
+  border-radius: 5px;
   box-shadow: 3px 3px 5px lightgray;
 }
 label {
@@ -56,12 +56,12 @@ label {
   margin: 0 20px;
   line-height: 60px;
   font-size: 18px;
-  color:gray;
+  color: gray;
   cursor: pointer;
-  transition: color .5s; 
+  transition: color 0.5s;
 }
 label:hover {
-  color:black;
+  color: black;
 }
 .photo-gallery {
   width: 90%;
@@ -73,7 +73,7 @@ label:hover {
 .pic {
   position: relative;
   height: 230px;
-  border-radius:10px;
+  border-radius: 10px;
 }
 .pic img {
   width: 100%;
@@ -88,22 +88,38 @@ label:hover {
 
 .FlexWrap {
   background-color: indigo;
-	font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   height: 100%;
   width: 100%;
-  
+
   display: flex;
-  flex-wrap: wrap;          /* test with wrap nowrap */
-  align-items: center;      /* alignment along cross axis - center flex-start flex-end */
-  justify-content:space-evenly;  /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
+  flex-wrap: wrap; /* test with wrap nowrap */
+  align-items: center; /* alignment along cross axis - center flex-start flex-end */
+  justify-content: space-evenly; /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
 }
 
 .FlexItem {
-  width: 200px;            /* fixed size will demonstrate the wrap */
+  padding: 10px;
+  width: 200px; /* fixed size will demonstrate the wrap */
+  margin: 10px;
+  cursor: pointer;
 }
 
-img {
+.FlexItem:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.FlexItem img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.FlexItem .title {
+  color: #fff;
+  text-align: center;
+  padding: 4px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
 }

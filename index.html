@@ -15,17 +15,13 @@
     <input type="radio" name="Photos" id="check5" />
 
     <div class="container">
-      <h1>OUR PHOTO GALLERY</h1>
-      <div class="top-content">
-        <label for="check1">All Photos</label>
-        <label for="check2">Galaxies</label>
-        <label for="check3">Hubble telescope</label>
-        <label for="check4">Newborn stars</label>
-        <label for="check4">Nebulas</label>
-        <label for="check5">Planets</label>
-      </div>
+      <h1>OUR PHOTO GALLERY with <span id="counter">0</span> albums</h1>
     </div>
-<!--
+
+    <input type="button" name="demo"></input>
+
+    
+    <!--
   <div class="photo-gallery">
     <div class="pic-galaxy">
       
@@ -45,12 +41,15 @@
     </div>
   </div>
 -->
-    <div class="FlexWrap">
-      <!-- Below is being rendered in the js -->
-    <div class="FlexItem">
-    </div class="pic-galaxy">
+
+    <div class="FlexWrap FlexWrapAlbums" style="margin-bottom: 50px;"></div>
+
     
+    <div class="FlexWrap FlexWrapImages">
+      <!-- Below is being rendered in the js 
+    <div class="FlexItem">
     </div>
+    --></div>
 
     <script type="module" src="./script/appPictureLibrary.js"></script>
   </body>
