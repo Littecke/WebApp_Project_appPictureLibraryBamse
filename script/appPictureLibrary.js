@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
 //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
-
+ 
 for (const album of library.albums) {
 
     renderImage(album.headerImage, album.id);
@@ -23,6 +23,7 @@ for (const album of library.albums) {
     }
   }
 })
+
 
 window.addEventListener('click',  () => {
 
