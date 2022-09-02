@@ -36,11 +36,12 @@ function showAlbum(album) {
 
   const titleDiv = document.createElement("div");
   titleDiv.innerHTML = album.title;
-  titleDiv.className = "title";
+  titleDiv.className = "album-title";
+
   imgFlex.appendChild(titleDiv);
 
   for (const picture of album.pictures) {
-    renderImage(`${album.path}/${picture.imgLoRes}`, picture.id);
+    renderImage(picture, album);
     // renderImage(`${album.path}/${picture.imgHiRes}`, picture.id);
   }
 }
@@ -51,17 +52,32 @@ function showImage() {
 }
 
 //Render the images
-function renderImage(src, tag) {
-  const div = document.createElement("div");
-  div.className = `FlexItem`;
-  div.dataset.albumId = tag;
+function renderImage(picture, album) {
+  console.log("COMMEnT:", picture.comment);
+  const url = `${album.path}/${picture.imgLoRes}`;
+  console.log(picture);
+  const imageWrapperDiv = document.createElement("div");
+  imageWrapperDiv.className = `FlexItem`;
+  imageWrapperDiv.dataset.albumId = picture.id;
 
   const img = document.createElement("img");
-  img.src = src;
-  div.appendChild(img);
+  img.src = url;
+  imageWrapperDiv.appendChild(img);
+
+  const titleDiv = document.createElement("div");
+  titleDiv.innerHTML = picture.title;
+  titleDiv.className = "title";
+
+  imageWrapperDiv.appendChild(titleDiv);
+
+  const commentDiv = document.createElement("div");
+  commentDiv.innerHTML = picture.comment;
+  commentDiv.className = "comment";
+
+  imageWrapperDiv.appendChild(commentDiv);
 
   const imgFlex = document.querySelector(".FlexWrapImages");
-  imgFlex.appendChild(div);
+  imgFlex.appendChild(imageWrapperDiv);
 }
 
 //Render the images

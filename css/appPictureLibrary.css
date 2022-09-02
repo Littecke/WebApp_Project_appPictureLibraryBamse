@@ -106,8 +106,11 @@ h1::before {
   background-color: rgba(0, 0, 0, 0.2);
   margin-top: 5px;
 }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> master
 
 .FlexItem .comment {
   color: grey;
@@ -116,7 +119,11 @@ h1::before {
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.2);
   margin-top: 5px;
+<<<<<<< HEAD
   font-size: 12px;
+=======
+  font-size: 10px;
+>>>>>>> master
 }
 
 .album-title {
@@ -143,4 +150,7 @@ div .slides {
   border-right-color: #5d4426;
   position: relative;
 }
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> master
