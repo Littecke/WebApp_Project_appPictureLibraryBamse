@@ -40,29 +40,7 @@ h1::before {
     width: 100px;
   }
 }
-.top-content {
-  background-color: aliceblue;
-  width: 100%;
-  margin: 0 auto;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-  box-shadow: 3px 3px 5px lightgray;
-}
-label {
-  display: inline-block;
-  height: 100%;
-  margin: 0 20px;
-  line-height: 60px;
-  font-size: 18px;
-  color: gray;
-  cursor: pointer;
-  transition: color 0.5s;
-}
-label:hover {
-  color: black;
-}
+
 .photo-gallery {
   width: 90%;
   margin: auto;
@@ -107,11 +85,16 @@ label:hover {
 
 .FlexItem:hover {
   background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.3);
+  background-color: rgb(98, 1, 167);
+  transition: 0.5s ease-in-out;
+  opacity: 0.9;
 }
 
 .FlexItem img {
   width: 100%;
   height: 100%;
+  background-color: black;
   object-fit: cover;
 }
 
@@ -123,3 +106,41 @@ label:hover {
   background-color: rgba(0, 0, 0, 0.2);
   margin-top: 5px;
 }
+<<<<<<< Updated upstream
+=======
+
+.FlexItem .comment {
+  color: grey;
+  text-align: center;
+  padding: 4px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.album-title {
+  font-size: 25px;
+  color: #fff;
+}
+@keyframes round {
+  25% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0;
+  }
+}
+div .slides {
+  margin: 50px auto;
+  width: 500px;
+  height: 300px;
+  overflow: hidden;
+  border: 10px solid;
+  border-top-color: #856036;
+  border-left-color: #5d4426;
+  border-bottom-color: #856036;
+  border-right-color: #5d4426;
+  position: relative;
+}
+>>>>>>> Stashed changes
