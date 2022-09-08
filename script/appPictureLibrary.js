@@ -104,3 +104,5 @@ function renderAlbumImage(album) {
   const imgFlex = document.querySelector(".FlexWrapAlbums");
   imgFlex.appendChild(div);
 }
+
+
