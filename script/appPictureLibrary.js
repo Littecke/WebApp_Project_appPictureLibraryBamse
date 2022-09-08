@@ -17,6 +17,18 @@ window.addEventListener("DOMContentLoaded", async () => {
   const counter = document.querySelector("#counter");
   counter.innerHTML = library.albums.length;
 
+  showLibrary();
+});
+
+function showLibrary() {
+  const div = document.createElement("div");
+  div.className = "FlexWrap FlexWrapAlbums";
+
+  const content = document.querySelector(".content");
+  content.innerHTML = "";
+
+  content.appendChild(div);
+
   for (const album of library.albums) {
     renderAlbumImage(album);
 
@@ -25,20 +37,32 @@ window.addEventListener("DOMContentLoaded", async () => {
       //  renderImage(`${album.path}/${picture.imgHiRes}`, picture.id);
     }
   }
-});
+}
 
 function showAlbum(album) {
-  console.log("clickkk");
-  console.log(album);
+  const content = document.querySelector(".content");
+  content.innerHTML = "";
 
-  const imgFlex = document.querySelector(".FlexWrapImages");
-  imgFlex.innerHTML = "";
+  const backDiv = document.createElement("div");
+  backDiv.className = "back";
+  backDiv.innerHTML = "Back to library 👈";
+
+  backDiv.addEventListener("click", (event) => {
+    showLibrary();
+  });
+
+  content.appendChild(backDiv);
+
+  const div = document.createElement("div");
+  div.className = "FlexWrap FlexWrapImages";
+
+  content.appendChild(div);
 
   const titleDiv = document.createElement("div");
   titleDiv.innerHTML = album.title;
   titleDiv.className = "album-title";
 
-  imgFlex.appendChild(titleDiv);
+  div.appendChild(titleDiv);
 
   for (const picture of album.pictures) {
     renderImage(picture, album);
@@ -82,8 +106,6 @@ function renderImage(picture, album) {
   const ratingDiv = document.createElement("div");
   ratingDiv.className = "rating";
   flexItemDiv.appendChild(ratingDiv);
-
-  const stars = [];
 
   for (let i = 1; i <= 5; i++) {
     const star = createStar(i);
