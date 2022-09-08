@@ -206,12 +206,11 @@ div .slides {
 
 .rating {
   display: flex;
+  justify-content: center;
 }
 
 .rating .star {
   padding: 3px;
-  align-items: center;
-  justify-content: center;
 }
 
 .rating .star.checked {
