@@ -56,28 +56,76 @@ function renderImage(picture, album) {
   console.log("COMMEnT:", picture.comment);
   const url = `${album.path}/${picture.imgLoRes}`;
   console.log(picture);
-  const imageWrapperDiv = document.createElement("div");
-  imageWrapperDiv.className = `FlexItem`;
-  imageWrapperDiv.dataset.albumId = picture.id;
+  const flexItemDiv = document.createElement("div");
+  flexItemDiv.className = `pictureWrapper FlexItem`;
+  flexItemDiv.dataset.pictureId = picture.id;
 
   const img = document.createElement("img");
   img.src = url;
-  imageWrapperDiv.appendChild(img);
+  flexItemDiv.appendChild(img);
 
   const titleDiv = document.createElement("div");
   titleDiv.innerHTML = picture.title;
   titleDiv.className = "title";
 
-  imageWrapperDiv.appendChild(titleDiv);
+  flexItemDiv.appendChild(titleDiv);
 
   const commentDiv = document.createElement("div");
   commentDiv.innerHTML = picture.comment;
   commentDiv.className = "comment";
 
-  imageWrapperDiv.appendChild(commentDiv);
+  flexItemDiv.appendChild(commentDiv);
 
   const imgFlex = document.querySelector(".FlexWrapImages");
-  imgFlex.appendChild(imageWrapperDiv);
+  imgFlex.appendChild(flexItemDiv);
+
+  const ratingDiv = document.createElement("div");
+  ratingDiv.className = "rating";
+  flexItemDiv.appendChild(ratingDiv);
+
+  const stars = [];
+
+  for (let i = 1; i <= 5; i++) {
+    const star = createStar(i);
+    ratingDiv.appendChild(star);
+  }
+}
+
+function createStar(index) {
+  const starTemplate = document.createElement("div");
+  starTemplate.className = "star fa fa-star";
+  starTemplate.dataset.rating = index;
+
+  starTemplate.addEventListener("click", (event) => {
+    setRating(event.target);
+  });
+
+  return starTemplate;
+}
+
+function setRating(starElement) {
+  console.log(starElement.dataset.rating);
+
+  // Värde mellan 1-5
+  let rating = starElement.dataset.rating;
+
+  const ratingElement = starElement.closest(".rating");
+
+  const starElements = ratingElement.querySelectorAll(".star");
+
+  if (ratingElement.dataset.rating == rating) {
+    rating = 0;
+  }
+
+  for (let i = 0; i < 5; i++) {
+    if (i < rating) {
+      starElements[i].classList.add("checked");
+    } else {
+      starElements[i].classList.remove("checked");
+    }
+  }
+
+  ratingElement.dataset.rating = rating;
 }
 
 //Render the images
@@ -87,7 +135,7 @@ function renderAlbumImage(album) {
   const title = album.title;
 
   const div = document.createElement("div");
-  div.className = `FlexItem`;
+  div.className = `albumWrapper FlexItem`;
   div.dataset.albumId = tag;
 
   div.addEventListener("click", () => showAlbum(album));
