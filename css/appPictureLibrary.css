@@ -108,7 +108,7 @@ h1::before {
 }
 
 .FlexItem .commentWrapper {
-  padding: 4px;
+  padding: 10px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.2);
   margin-top: 5px;
