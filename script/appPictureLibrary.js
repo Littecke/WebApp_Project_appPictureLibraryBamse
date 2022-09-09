@@ -53,16 +53,16 @@ function showAlbum(album) {
 
   content.appendChild(backDiv);
 
-  const div = document.createElement("div");
-  div.className = "FlexWrap FlexWrapImages";
-
-  content.appendChild(div);
-
   const titleDiv = document.createElement("div");
   titleDiv.innerHTML = album.title;
   titleDiv.className = "album-title";
 
-  div.appendChild(titleDiv);
+  content.appendChild(titleDiv);
+
+  const div = document.createElement("div");
+  div.className = "FlexWrap FlexWrapImages";
+
+  content.appendChild(div);
 
   for (const picture of album.pictures) {
     renderImage(picture, album);
@@ -82,7 +82,7 @@ function renderImage(picture, album) {
   console.log(picture);
   const flexItemDiv = document.createElement("div");
   flexItemDiv.className = `pictureWrapper FlexItem`;
-  flexItemDiv.dataset.pictureId = picture.id;
+  flexItemDiv.dataset.id = picture.id;
 
   const img = document.createElement("img");
   img.src = url;
@@ -116,6 +116,10 @@ function renderImage(picture, album) {
     const star = createStar(i);
     ratingDiv.appendChild(star);
   }
+
+  const rating = getRating(picture.id);
+
+  renderRatingColors(picture.id, rating);
 }
 
 function createStar(index) {
@@ -124,25 +128,49 @@ function createStar(index) {
   starTemplate.dataset.rating = index;
 
   starTemplate.addEventListener("click", (event) => {
-    setRating(event.target);
+    ratePicture(event.target);
   });
 
   return starTemplate;
 }
 
-function setRating(starElement) {
+function getRating(pictureId) {
+  const ratingVarName = "rating-" + pictureId;
+
+  return window.localStorage.getItem(ratingVarName);
+}
+
+function setRating(pictureId, rating) {
+  const ratingVarName = "rating-" + pictureId;
+
+  return window.localStorage.setItem(ratingVarName, rating);
+}
+
+function ratePicture(starElement) {
   console.log(starElement.dataset.rating);
+  const pictureElement = starElement.closest(".pictureWrapper");
+
+  const pictureId = pictureElement.dataset.id;
 
   // Värde mellan 1-5
   let rating = starElement.dataset.rating;
 
-  const ratingElement = starElement.closest(".rating");
+  const currentRating = getRating(pictureId);
 
-  const starElements = ratingElement.querySelectorAll(".star");
-
-  if (ratingElement.dataset.rating == rating) {
+  if (currentRating && currentRating == rating) {
     rating = 0;
   }
+
+  setRating(pictureId, rating);
+  renderRatingColors(pictureId, rating);
+}
+
+function renderRatingColors(pictureId, rating) {
+  const pictureElement = document.querySelector(
+    `.pictureWrapper[data-id='${pictureId}']`
+  );
+
+  const starElements = pictureElement.querySelectorAll(".rating .star");
 
   for (let i = 0; i < 5; i++) {
     if (i < rating) {
@@ -151,8 +179,6 @@ function setRating(starElement) {
       starElements[i].classList.remove("checked");
     }
   }
-
-  ratingElement.dataset.rating = rating;
 }
 
 //Render the images
