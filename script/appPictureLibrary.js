@@ -94,11 +94,16 @@ function renderImage(picture, album) {
 
   flexItemDiv.appendChild(titleDiv);
 
+  const commentWrapperDiv = document.createElement("div");
+  commentWrapperDiv.className = "commentWrapper";
+
+  flexItemDiv.appendChild(commentWrapperDiv);
+
   const commentDiv = document.createElement("div");
   commentDiv.innerHTML = picture.comment;
   commentDiv.className = "comment";
 
-  flexItemDiv.appendChild(commentDiv);
+  commentWrapperDiv.appendChild(commentDiv);
 
   const imgFlex = document.querySelector(".FlexWrapImages");
   imgFlex.appendChild(flexItemDiv);

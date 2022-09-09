@@ -107,14 +107,21 @@ h1::before {
   margin-top: 5px;
 }
 
-.FlexItem .comment {
-  color: grey;
-  text-align: center;
+.FlexItem .commentWrapper {
   padding: 4px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.2);
   margin-top: 5px;
+}
+
+.FlexItem .comment {
+  color: grey;
+  text-align: center;
   font-size: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .album-title {
