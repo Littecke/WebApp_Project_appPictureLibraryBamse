@@ -70,10 +70,18 @@ function showAlbum(album) {
   }
 }
 
-function showImage() {
+function showImage(pictureId) {
+  const ShowpictureElement = document.querySelector(
+    `.pictureWrapper[data-id='${pictureId}']`,
+    ShowpictureElement.addEventListener('click', () => {
+    renderImage(`${album.path}/${picture.imgHiRes}`, picture.id);
+    })
+  );
   // klicka på en bild
   // visa den i fullscreen
 }
+
+
 
 //Render the images
 function renderImage(picture, album) {
