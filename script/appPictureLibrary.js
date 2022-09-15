@@ -6,11 +6,22 @@ import * as lib from "../model/picture-library-browser.js";
 
 const libraryJSON = "picture-library.json";
 let library; //Global varibale, Loaded async from the current server in window.load event
+let pageContentInModal = document.querySelector(".pageContentInModal");
+let closeBtn = document.querySelector(".windowModalHeader .btnCloseModal")
 
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+
+closeBtn.addEventListener('click', () => { pageContentInModal.style.display = "none"; })
+  
+  //if you want clicking outside shall close
+window.addEventListener('click', (e) => {
+  if (e.target == pageContentInModal) {
+     pageContentInModal.style.display = "none"
+  }
+})
 
   console.log(library);
 
@@ -70,19 +81,47 @@ function showAlbum(album) {
   }
 }
 
-function showImage() {
-  // klicka på en bild
-  // visa den i fullscreen
+function showImage(picture,album) {
+const pictureWrapper = document.querySelector(".pictureWrapper");
+pictureWrapper.dataset.id = picture.id;
+
+  console.log(picture.id);
+const modalh2 = document.querySelector(".modalh2");
+modalh2.innerText=picture.title;
+
+const url = `${album.path}/${picture.imgHiRes}`;
+console.log(picture);
+
+const modalImage = document.createElement("img");
+modalImage.className = `windowModalContentImage`;
+modalImage.dataset.id = picture.id;
+modalImage.src = url;
+
+const divModalImage = document.querySelector(".modalImage");
+divModalImage.innerHTML="";
+divModalImage.appendChild(modalImage);
+
+const modalRating = document.querySelector(".modalRating");
+modalRating.innerHTML="";
+createRating(picture.id, modalRating);
+
+const modalComments = document.querySelector(".modalComments");
+modalComments.innerText=picture.comment;
+// leta upp divar och fylla med content - titel, kommentar, image, edit
+pageContentInModal.style.display = "block";
 }
+
 
 //Render the images
 function renderImage(picture, album) {
-  console.log("COMMEnT:", picture.comment);
+ // console.log("COMMEnT:", picture.comment); 
   const url = `${album.path}/${picture.imgLoRes}`;
   console.log(picture);
   const flexItemDiv = document.createElement("div");
   flexItemDiv.className = `pictureWrapper FlexItem`;
   flexItemDiv.dataset.id = picture.id;
+
+  flexItemDiv.addEventListener("click", () => showImage(picture, album));
 
   const img = document.createElement("img");
   img.src = url;
@@ -107,19 +146,22 @@ function renderImage(picture, album) {
 
   const imgFlex = document.querySelector(".FlexWrapImages");
   imgFlex.appendChild(flexItemDiv);
+}
 
+function createRating (pictureId, parent) {
   const ratingDiv = document.createElement("div");
   ratingDiv.className = "rating";
-  flexItemDiv.appendChild(ratingDiv);
+  ratingDiv.dataset.id = pictureId;
+  parent.appendChild(ratingDiv);
 
   for (let i = 1; i <= 5; i++) {
     const star = createStar(i);
     ratingDiv.appendChild(star);
   }
 
-  const rating = getRating(picture.id);
+  const rating = getRating(pictureId);
 
-  renderRatingColors(picture.id, rating);
+  renderRatingColors(pictureId, rating);
 }
 
 function createStar(index) {
@@ -148,9 +190,9 @@ function setRating(pictureId, rating) {
 
 function ratePicture(starElement) {
   console.log(starElement.dataset.rating);
-  const pictureElement = starElement.closest(".pictureWrapper");
+  const ratingElement = starElement.closest(".rating");
 
-  const pictureId = pictureElement.dataset.id;
+  const pictureId = ratingElement.dataset.id;
 
   // Värde mellan 1-5
   let rating = starElement.dataset.rating;
@@ -166,11 +208,11 @@ function ratePicture(starElement) {
 }
 
 function renderRatingColors(pictureId, rating) {
-  const pictureElement = document.querySelector(
-    `.pictureWrapper[data-id='${pictureId}']`
+  const ratingElement = document.querySelector(
+    `.rating[data-id='${pictureId}']`
   );
 
-  const starElements = pictureElement.querySelectorAll(".rating .star");
+  const starElements = ratingElement.querySelectorAll(".star");
 
   for (let i = 0; i < 5; i++) {
     if (i < rating) {

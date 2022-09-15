@@ -5,6 +5,7 @@
     <title>appPictureLibrary</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="./css/appPictureLibrary.css" />
+    <link rel="stylesheet" href="./css/modal-window.css" />
 
     <script type="module" src="./script/appPictureLibrary.js"></script>
     <link
@@ -19,7 +20,21 @@
         <h1>OUR PHOTO GALLERY with <span id="counter">0</span> albums</h1>
       </div>
 
-      <div class="content"></div>
+      <div class="content">
+      </div>
+      <div id="modal1" class="pageContentInModal">
+        <div class="windowModal">
+            <div class="windowModalHeader">
+                <h2 class="modalh2"> </h2>
+                <span class="btnCloseModal">&times;</span>
+            </div>
+            <div class="windowModalContent">
+                <div class="modalImage"></div>
+                <div class="modalComments"> </div>
+                <div class ="modalRating"> </div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <input type="text" id="comment-box" placeholder="Enter comment">
@@ -34,11 +49,11 @@
 </html>
 <!--  Exercise:
 ▪ see all the albums with header picture and header text                                - check
-▪ select an album and see all the pictures in that album.                               - check?
+▪ select an album and see all the pictures in that album.                               - check
 ▪ view picture titles and parts of the picture comment for the pictures in an album.    - check
 ▪ view an individual picture in an album in appropriate resolution together with title and 
-full comment.                                                                             - Leo
-▪ edit and save the title and comments of a picture. 
-▪ select pictures in an album and view them in a slide show.                              - Lollo
-▪ rate a picture, save the rating, and see the rating together with the picture
+full comment.                                                                             - check
+▪ rate a picture, save the rating, and see the rating together with the picture           - check
+▪ edit and save the title and comments of a picture.                // knapp i modalfönster
+▪ select pictures in an album and view them in a slide show.       // checkbox, lägger till bilder i array, presentera i modal/bootstrap                      
 -->
