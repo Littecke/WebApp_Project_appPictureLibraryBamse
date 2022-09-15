@@ -38,12 +38,15 @@ h1::before {
 @keyframes animate {
   0% {
     width: 100px;
+  
   }
   50% {
     width: 200px;
+    background-color: orangered;
   }
   100% {
     width: 100px;
+    background-color: crimson;
   }
 }
 
@@ -241,4 +244,14 @@ div .slides {
   text-align: center;
   font-weight: bold;
   margin-bottom: 25px;
+}
+
+
+#comment-box, #post {
+  border: none;
+  border-radius: 5px;
+ 
+}
+#post:hover{
+  background-color: rgb(179, 240, 12);
 }
