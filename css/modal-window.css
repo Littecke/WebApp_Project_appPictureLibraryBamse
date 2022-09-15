@@ -22,6 +22,8 @@
 }
 [contenteditable="true"] {
   color: green;
+  border-bottom: 2px dotted black;
+  text-align: left;
 }
 
 .windowModal {
@@ -43,14 +45,9 @@
   display: flex;
   flex-direction: row;
   flex: 0 0 40px;
-  justify-content: center;
 }
 
 .windowModalHeader h2 {
-  display: flex;
-  flex: 1 1 auto;
-  /* grow into available pace of the ModalHeader flex */
-  justify-content: center;
 }
 
 .windowModalContent {
@@ -76,6 +73,11 @@
   color: darkgray;
 }
 
+h2 {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
 @keyframes showModal {
   from {
     top: -300px;

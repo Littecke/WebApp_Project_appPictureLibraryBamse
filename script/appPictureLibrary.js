@@ -91,10 +91,9 @@ function showImage(picture, album) {
   const modalh2 = document.querySelector(".modalh2");
   modalh2.innerText = picture.title;
 
-  const editBtn = document.querySelector("#editSave");
-  editBtn.addEventListener("click", () => {
-    picture.title = target.innerText;
-    console.log(target.innerText);
+  modalh2.addEventListener("input", (event) => {
+    picture.title = event.target.innerText;
+    console.log(event.target.innerText);
   });
 
   const url = `${album.path}/${picture.imgHiRes}`;
@@ -120,6 +119,20 @@ function showImage(picture, album) {
   modalComments.addEventListener("input", (event) => {
     picture.comment = event.target.innerText;
     console.log(event.target.innerText);
+  });
+
+  const editBtn = document.querySelector("#editSave");
+
+  editBtn.addEventListener("click", (event) => {
+    if (modalh2.contentEditable == "true") {
+      modalh2.contentEditable = "false";
+      modalComments.contentEditable = "false";
+      event.target.innerText = "Edit";
+    } else {
+      modalh2.contentEditable = "true";
+      modalComments.contentEditable = "true";
+      event.target.innerText = "Done";
+    }
   });
 }
 
