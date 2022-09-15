@@ -14,14 +14,16 @@ window.addEventListener("DOMContentLoaded", async () => {
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
-closeBtn.addEventListener('click', () => { pageContentInModal.style.display = "none"; });
-  
+  closeBtn.addEventListener("click", () => {
+    pageContentInModal.style.display = "none";
+  });
+
   //if you want clicking outside shall close
-window.addEventListener('click', (e) => {
-  if (e.target == pageContentInModal) {
-     pageContentInModal.style.display = "none"
-  }
-})
+  window.addEventListener("click", (e) => {
+    if (e.target == pageContentInModal) {
+      pageContentInModal.style.display = "none";
+    }
+  });
 
   console.log(library);
 
@@ -81,54 +83,54 @@ function showAlbum(album) {
   }
 }
 
-function showImage(picture,album) {
-const pictureWrapper = document.querySelector(".pictureWrapper");
-pictureWrapper.dataset.id = picture.id;
+function showImage(picture, album) {
+  const pictureWrapper = document.querySelector(".pictureWrapper");
+  pictureWrapper.dataset.id = picture.id;
 
-console.log(picture.id);
-const modalh2 = document.querySelector(".modalh2");
-modalh2.innerText=picture.title;
+  console.log(picture.id);
+  const modalh2 = document.querySelector(".modalh2");
+  modalh2.innerText = picture.title;
 
-const editBtn = document.querySelector("#editSave");
-editBtn.addEventListener("click", () => {
-  picture.title = target.innerText;
-  console.log(target.innerText);
-});
+  const editBtn = document.querySelector("#editSave");
+  editBtn.addEventListener("click", () => {
+    picture.title = target.innerText;
+    console.log(target.innerText);
+  });
 
-const url = `${album.path}/${picture.imgHiRes}`;
-console.log(picture);
+  const url = `${album.path}/${picture.imgHiRes}`;
+  console.log(picture);
 
-const modalImage = document.createElement("img");
-modalImage.className = `windowModalContentImage`;
-modalImage.dataset.id = picture.id;
-modalImage.src = url;
+  const modalImage = document.createElement("img");
+  modalImage.className = `windowModalContentImage`;
+  modalImage.dataset.id = picture.id;
+  modalImage.src = url;
 
-const divModalImage = document.querySelector(".modalImage");
-divModalImage.innerHTML="";
-divModalImage.appendChild(modalImage);
+  const divModalImage = document.querySelector(".modalImage");
+  divModalImage.innerHTML = "";
+  divModalImage.appendChild(modalImage);
 
-const modalRating = document.querySelector(".modalRating");
-modalRating.innerHTML="";
-createRating(picture.id, modalRating);
+  const modalRating = document.querySelector(".modalRating");
+  modalRating.innerHTML = "";
+  createRating(picture.id, modalRating);
 
-const modalComments = document.querySelector(".modalComments");
-modalComments.innerText=picture.comment;
-pageContentInModal.style.display = "block";
+  const modalComments = document.querySelector(".modalComments");
+  modalComments.innerText = picture.comment;
+  pageContentInModal.style.display = "block";
 
-modalComments.addEventListener("input", (event) => {
-  picture.comment = event.target.innerText;
-  console.log(event.target.innerText);
-});
+  modalComments.addEventListener("input", (event) => {
+    picture.comment = event.target.innerText;
+    console.log(event.target.innerText);
+  });
 }
 
-function editText (picture, value) {
- picture.title = value;
+function editText(picture, value) {
+  picture.title = value;
   console.log(value);
 }
 
 //Render the images
 function renderImage(picture, album) {
-  console.log("COMMEnT:", picture.comment); 
+  console.log("COMMEnT:", picture.comment);
   const url = `${album.path}/${picture.imgLoRes}`;
   console.log(picture);
   const flexItemDiv = document.createElement("div");
@@ -162,7 +164,7 @@ function renderImage(picture, album) {
   imgFlex.appendChild(flexItemDiv);
 }
 
-function createRating (pictureId, parent) {
+function createRating(pictureId, parent) {
   const ratingDiv = document.createElement("div");
   ratingDiv.className = "rating";
   ratingDiv.dataset.id = pictureId;
