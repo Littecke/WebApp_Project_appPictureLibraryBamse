@@ -47,9 +47,6 @@
   flex: 0 0 40px;
 }
 
-.windowModalHeader h2 {
-}
-
 .windowModalContent {
   z-index: 2;
   padding: 20px;

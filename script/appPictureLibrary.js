@@ -83,6 +83,8 @@ function showAlbum(album) {
   }
 }
 
+let saveListener;
+
 function showImage(picture, album) {
   const pictureWrapper = document.querySelector(".pictureWrapper");
   pictureWrapper.dataset.id = picture.id;
@@ -91,7 +93,8 @@ function showImage(picture, album) {
   const modalh2 = document.querySelector(".modalh2");
   modalh2.innerText = picture.title;
 
-  modalh2.addEventListener("input", (event) => {
+  saveListener = modalh2.addEventListener("input", (event) => {
+    console.log("BLERLBLBELBELBE");
     picture.title = event.target.innerText;
     console.log(event.target.innerText);
   });
@@ -120,26 +123,28 @@ function showImage(picture, album) {
     picture.comment = event.target.innerText;
     console.log(event.target.innerText);
   });
-
-  const editBtn = document.querySelector("#editSave");
-
-  editBtn.addEventListener("click", (event) => {
-    if (modalh2.contentEditable == "true") {
-      modalh2.contentEditable = "false";
-      modalComments.contentEditable = "false";
-      event.target.innerText = "Edit";
-    } else {
-      modalh2.contentEditable = "true";
-      modalComments.contentEditable = "true";
-      event.target.innerText = "Done";
-    }
-  });
 }
 
-function editText(picture, value) {
-  picture.title = value;
-  console.log(value);
-}
+const editBtn = document.querySelector("#editSave");
+
+editBtn.addEventListener("click", (event) => {
+  const parent = event.target.closest(".pageContentInModal");
+  const modalh2 = parent.querySelector(".modalh2");
+  const modalComments = parent.querySelector(".modalComments");
+
+  if (modalh2.contentEditable == "true") {
+    console.log("content is editable");
+
+    modalh2.contentEditable = "false";
+    modalComments.contentEditable = "false";
+    event.target.innerText = "Edit";
+  } else {
+    console.log("content is not editable");
+    modalh2.contentEditable = "true";
+    modalComments.contentEditable = "true";
+    event.target.innerText = "Done";
+  }
+});
 
 //Render the images
 function renderImage(picture, album) {
