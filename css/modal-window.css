@@ -16,6 +16,14 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+#editSave {
+    background-color: pink;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+[contenteditable="true"] {
+    color: green;
+  }
+
 .windowModal {
     position: relative;
     left: 15%;

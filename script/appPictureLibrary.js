@@ -7,14 +7,14 @@ import * as lib from "../model/picture-library-browser.js";
 const libraryJSON = "picture-library.json";
 let library; //Global varibale, Loaded async from the current server in window.load event
 let pageContentInModal = document.querySelector(".pageContentInModal");
-let closeBtn = document.querySelector(".windowModalHeader .btnCloseModal")
+let closeBtn = document.querySelector(".windowModalHeader .btnCloseModal");
 
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
-closeBtn.addEventListener('click', () => { pageContentInModal.style.display = "none"; })
+closeBtn.addEventListener('click', () => { pageContentInModal.style.display = "none"; });
   
   //if you want clicking outside shall close
 window.addEventListener('click', (e) => {
@@ -85,9 +85,15 @@ function showImage(picture,album) {
 const pictureWrapper = document.querySelector(".pictureWrapper");
 pictureWrapper.dataset.id = picture.id;
 
-  console.log(picture.id);
+console.log(picture.id);
 const modalh2 = document.querySelector(".modalh2");
 modalh2.innerText=picture.title;
+
+const editBtn = document.querySelector("#editSave");
+editBtn.addEventListener("click", () => {
+  picture.title = target.innerText;
+  console.log(target.innerText);
+});
 
 const url = `${album.path}/${picture.imgHiRes}`;
 console.log(picture);
@@ -107,14 +113,22 @@ createRating(picture.id, modalRating);
 
 const modalComments = document.querySelector(".modalComments");
 modalComments.innerText=picture.comment;
-// leta upp divar och fylla med content - titel, kommentar, image, edit
 pageContentInModal.style.display = "block";
+
+modalComments.addEventListener("input", (event) => {
+  picture.comment = event.target.innerText;
+  console.log(event.target.innerText);
+});
 }
 
+function editText (picture, value) {
+ picture.title = value;
+  console.log(value);
+}
 
 //Render the images
 function renderImage(picture, album) {
- // console.log("COMMEnT:", picture.comment); 
+  console.log("COMMEnT:", picture.comment); 
   const url = `${album.path}/${picture.imgLoRes}`;
   console.log(picture);
   const flexItemDiv = document.createElement("div");
@@ -247,19 +261,3 @@ function renderAlbumImage(album) {
   const imgFlex = document.querySelector(".FlexWrapAlbums");
   imgFlex.appendChild(div);
 }
-
-
-
-
-var post= document.getElementById("post");
-post.addEventListener("click", function(){
-    var commentBoxValue= document.getElementById("comment-box").value;
- 
-    var li = document.createElement("li");
-    var text = document.createTextNode(commentBoxValue);
-    li.appendChild(text);
-    document.getElementById("unordered").appendChild(li);
- 
-});
-
-

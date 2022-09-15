@@ -25,22 +25,18 @@
       <div id="modal1" class="pageContentInModal">
         <div class="windowModal">
             <div class="windowModalHeader">
-                <h2 class="modalh2"> </h2>
+                <h2 class="modalh2" contenteditable="false"></h2>
                 <span class="btnCloseModal">&times;</span>
             </div>
             <div class="windowModalContent">
                 <div class="modalImage"></div>
-                <div class="modalComments"> </div>
-                <div class ="modalRating"> </div>
+                <div class="modalComments" contenteditable="false"></div>
+                <div class ="modalRating"></div>
+                <button id="editSave"> Edit Text </button>
             </div>
         </div>
     </div>
-    </div>
-
-    <input type="text" id="comment-box" placeholder="Enter comment">
-    <button id="post">Post</button>
-    <ul id="unordered"></ul>
-   
+    </div>   
 
 
     <script src="./script/appPictureLibrary.js"></script>
@@ -54,6 +50,7 @@
 ▪ view an individual picture in an album in appropriate resolution together with title and 
 full comment.                                                                             - check
 ▪ rate a picture, save the rating, and see the rating together with the picture           - check
+
 ▪ edit and save the title and comments of a picture.                // knapp i modalfönster
 ▪ select pictures in an album and view them in a slide show.       // checkbox, lägger till bilder i array, presentera i modal/bootstrap                      
 -->
