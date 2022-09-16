@@ -206,7 +206,7 @@ window.localStorage.setItem('slideArray', JSON.stringify(slideArray));
 });
   // skapa en funktion för att hämta slideshow-arrayen från local storage
 function showSlideshow () {
-
+// slideArray = JSON.parse(window.localStorage.getItem('slideArray'));
 
 }
 
