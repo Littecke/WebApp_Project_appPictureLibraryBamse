@@ -186,10 +186,30 @@ function renderImage(picture, album) {
   checboxDiv.appendChild(checkboxLabel);
 
   // skapa en event listener som lyssnar på "change" på checkboxen
-  // när man klickar på den så vill ni lägga till eller ta bort pictureid i slideshow-arrayen
+  checkBox.addEventListener("change", (event) => {
 
+let slideArray = JSON.parse(window.localStorage.getItem('slideArray'));     //JSonParse
+  if(typeof slideArray === 'undefined' || slideArray == null) {
+slideArray = [];
+  }
+  // när man klickar på den så vill ni lägga till eller ta bort pictureid i slideshow-arrayen
+if (checkBox.checked == true) {
+  // lägger till pictureId till array
+  slideArray.push(picture.id);
+  console.log(slideArray);
+}
+else if (checkBox.checked == false) {
+  slideArray.pop(picture.id);
+  console.log(slideArray);
+}
+window.localStorage.setItem('slideArray', JSON.stringify(slideArray));   
+});
   // skapa en funktion för att hämta slideshow-arrayen från local storage
-  // skapa en funktion för att lägga till eller ta bort ett id från slideshow-arrayen
+function showSlideshow () {
+
+
+}
+
 
   contentDiv.addEventListener("click", () => showImageInModal(picture, album));
 
