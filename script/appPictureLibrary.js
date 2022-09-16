@@ -180,6 +180,12 @@ function renderImage(picture, album) {
 
   const imgFlex = document.querySelector(".FlexWrapImages");
   imgFlex.appendChild(flexItemDiv);
+
+  const checkBox = document.createElement("div");
+  checkBox.className = `pictureWrapper FlexItem`;
+  checkBox.dataset.id = picture.id;
+
+  
 }
 
 function createRating(pictureId, parent) {
