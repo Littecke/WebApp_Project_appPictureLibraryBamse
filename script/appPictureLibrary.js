@@ -76,6 +76,10 @@ function showAlbum(album) {
   div.className = "FlexWrap FlexWrapImages";
 
   content.appendChild(div);
+  // skapa upp en input
+
+  // skapa listener på inputen
+  // i listenern lägg till bildens id i en array
 
   for (const picture of album.pictures) {
     renderImage(picture, album);
@@ -85,7 +89,7 @@ function showAlbum(album) {
 
 let saveListener;
 
-function showImage(picture, album) {
+function showImageInModal(picture, album) {
   const pictureWrapper = document.querySelector(".pictureWrapper");
   pictureWrapper.dataset.id = picture.id;
 
@@ -152,25 +156,44 @@ function renderImage(picture, album) {
   const url = `${album.path}/${picture.imgLoRes}`;
   console.log(picture);
   const flexItemDiv = document.createElement("div");
-  flexItemDiv.className = `pictureWrapper FlexItem`;
+  flexItemDiv.className = "pictureWrapper FlexItem";
   flexItemDiv.dataset.id = picture.id;
 
-  flexItemDiv.addEventListener("click", () => showImage(picture, album));
+  //skapa en div som wrappar innehållet (bild, titel kommentar).
+  // Klickfunktionen ligger här
+  const contentDiv = document.createElement("div");
+  contentDiv.className = "pictureContent";
+  flexItemDiv.appendChild(contentDiv);
+
+  //skapa upp en checkbox för slideshowen
+  const checboxDiv = document.createElement("div");
+  checboxDiv.className = "chechboxWrapper";
+  flexItemDiv.appendChild(checboxDiv);
+
+  const checkBox = document.createElement("input");
+  checkBox.type = "checkbox";
+  checkBox.className = "slideshowPicker";
+  //hämta bildens id och lägger i checkboxen
+  checkBox.dataset.id = picture.id;
+
+  checboxDiv.appendChild(checkBox);
+
+  contentDiv.addEventListener("click", () => showImageInModal(picture, album));
 
   const img = document.createElement("img");
   img.src = url;
-  flexItemDiv.appendChild(img);
+  contentDiv.appendChild(img);
 
   const titleDiv = document.createElement("div");
   titleDiv.innerHTML = picture.title;
   titleDiv.className = "title";
 
-  flexItemDiv.appendChild(titleDiv);
+  contentDiv.appendChild(titleDiv);
 
   const commentWrapperDiv = document.createElement("div");
   commentWrapperDiv.className = "commentWrapper";
 
-  flexItemDiv.appendChild(commentWrapperDiv);
+  contentDiv.appendChild(commentWrapperDiv);
 
   const commentDiv = document.createElement("div");
   commentDiv.innerHTML = picture.comment;
@@ -180,12 +203,6 @@ function renderImage(picture, album) {
 
   const imgFlex = document.querySelector(".FlexWrapImages");
   imgFlex.appendChild(flexItemDiv);
-
-  const checkBox = document.createElement("div");
-  checkBox.className = `pictureWrapper FlexItem`;
-  checkBox.dataset.id = picture.id;
-
-  
 }
 
 function createRating(pictureId, parent) {
