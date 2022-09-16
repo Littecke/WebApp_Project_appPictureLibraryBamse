@@ -173,6 +173,7 @@ function renderImage(picture, album) {
   const checkBox = document.createElement("input");
   checkBox.type = "checkbox";
   checkBox.className = "slideshowPicker";
+
   //hämta bildens id och lägger i checkboxen
   checkBox.dataset.id = picture.id;
   checkBox.id = `checkbox-${picture.id}`;
@@ -183,6 +184,12 @@ function renderImage(picture, album) {
   checkboxLabel.innerText = "Add to slideshow";
   checkboxLabel.htmlFor = `checkbox-${picture.id}`;
   checboxDiv.appendChild(checkboxLabel);
+
+  // skapa en event listener som lyssnar på "change" på checkboxen
+  // när man klickar på den så vill ni lägga till eller ta bort pictureid i slideshow-arrayen
+
+  // skapa en funktion för att hämta slideshow-arrayen från local storage
+  // skapa en funktion för att lägga till eller ta bort ett id från slideshow-arrayen
 
   contentDiv.addEventListener("click", () => showImageInModal(picture, album));
 
