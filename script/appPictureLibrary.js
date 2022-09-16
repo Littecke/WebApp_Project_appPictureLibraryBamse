@@ -175,8 +175,14 @@ function renderImage(picture, album) {
   checkBox.className = "slideshowPicker";
   //hämta bildens id och lägger i checkboxen
   checkBox.dataset.id = picture.id;
+  checkBox.id = `checkbox-${picture.id}`;
 
   checboxDiv.appendChild(checkBox);
+
+  const checkboxLabel = document.createElement("label");
+  checkboxLabel.innerText = "Add to slideshow";
+  checkboxLabel.htmlFor = `checkbox-${picture.id}`;
+  checboxDiv.appendChild(checkboxLabel);
 
   contentDiv.addEventListener("click", () => showImageInModal(picture, album));
 
