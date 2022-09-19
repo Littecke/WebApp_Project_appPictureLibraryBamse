@@ -56,8 +56,7 @@ function showLibrary() {
 
 function showAlbum(album) {
 
-
-slideBtn.hidden= false;
+  slideBtn.hidden= false;
 
   const content = document.querySelector(".content");
   content.innerHTML = "";
@@ -210,12 +209,17 @@ else if (checkBox.checked == false) {
 }
 window.localStorage.setItem('slideArray', JSON.stringify(slideArray));   
 });
-  // skapa en funktion för att hämta slideshow-arrayen från local storage
+
+slideBtn.addEventListener("click", () => showSlideshow());
+
+// skapa en funktion för att hämta slideshow-arrayen från local storage
 function showSlideshow () {
-// slideArray = JSON.parse(window.localStorage.getItem('slideArray'));
+const slideTitle = document.querySelector(".slideTitle");
+slideTitle.innerText=picture.title;
+ slideArray = JSON.parse(window.localStorage.getItem('slideArray'));
+
 
 }
-
 
   contentDiv.addEventListener("click", () => showImageInModal(picture, album));
 
