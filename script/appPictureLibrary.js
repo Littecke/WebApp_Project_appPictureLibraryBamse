@@ -8,6 +8,7 @@ const libraryJSON = "picture-library.json";
 let library; //Global varibale, Loaded async from the current server in window.load event
 let pageContentInModal = document.querySelector(".pageContentInModal");
 let closeBtn = document.querySelector(".windowModalHeader .btnCloseModal");
+let slideBtn = document.querySelector("#slideBtn");
 
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
@@ -34,6 +35,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 function showLibrary() {
+  slideBtn.hidden=true;
   const div = document.createElement("div");
   div.className = "FlexWrap FlexWrapAlbums";
 
@@ -53,6 +55,10 @@ function showLibrary() {
 }
 
 function showAlbum(album) {
+
+
+slideBtn.hidden= false;
+
   const content = document.querySelector(".content");
   content.innerHTML = "";
 
