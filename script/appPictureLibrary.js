@@ -34,6 +34,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 function showLibrary() {
+<<<<<<< Updated upstream
+=======
+  slideBtn.hidden = true;
+>>>>>>> Stashed changes
   const div = document.createElement("div");
   div.className = "FlexWrap FlexWrapAlbums";
 
@@ -53,6 +57,11 @@ function showLibrary() {
 }
 
 function showAlbum(album) {
+<<<<<<< Updated upstream
+=======
+  slideBtn.hidden = false;
+
+>>>>>>> Stashed changes
   const content = document.querySelector(".content");
   content.innerHTML = "";
 
@@ -155,7 +164,64 @@ function renderImage(picture, album) {
   flexItemDiv.className = `pictureWrapper FlexItem`;
   flexItemDiv.dataset.id = picture.id;
 
+<<<<<<< Updated upstream
   flexItemDiv.addEventListener("click", () => showImage(picture, album));
+=======
+  //skapa en div som wrappar innehållet (bild, titel kommentar).
+  // Klickfunktionen ligger här
+  const contentDiv = document.createElement("div");
+  contentDiv.className = "pictureContent";
+  flexItemDiv.appendChild(contentDiv);
+
+  //skapa upp en checkbox för slideshowen
+  const checboxDiv = document.createElement("div");
+  checboxDiv.className = "chechboxWrapper";
+  flexItemDiv.appendChild(checboxDiv);
+
+  const checkBox = document.createElement("input");
+  checkBox.type = "checkbox";
+  checkBox.className = "slideshowPicker";
+
+  //hämta bildens id och lägger i checkboxen
+  checkBox.dataset.id = picture.id;
+  checkBox.id = `checkbox-${picture.id}`;
+
+  checboxDiv.appendChild(checkBox);
+
+  const checkboxLabel = document.createElement("label");
+  checkboxLabel.innerText = "Add to slideshow";
+  checkboxLabel.htmlFor = `checkbox-${picture.id}`;
+  checboxDiv.appendChild(checkboxLabel);
+
+  // skapa en event listener som lyssnar på "change" på checkboxen
+  checkBox.addEventListener("change", (event) => {
+    let slideArray = JSON.parse(window.localStorage.getItem("slideArray")); //JSonParse
+    if (typeof slideArray === "undefined" || slideArray == null) {
+      slideArray = [];
+    }
+    // när man klickar på den så vill ni lägga till eller ta bort pictureid i slideshow-arrayen
+    if (checkBox.checked == true) {
+      // lägger till pictureId till array
+      slideArray.push(picture.id);
+      console.log(slideArray);
+    } else if (checkBox.checked == false) {
+      slideArray.pop(picture.id);
+      console.log(slideArray);
+    }
+    window.localStorage.setItem("slideArray", JSON.stringify(slideArray));
+  });
+
+  slideBtn.addEventListener("click", () => showSlideshow());
+
+  // skapa en funktion för att hämta slideshow-arrayen från local storage
+  function showSlideshow() {
+    const slideTitle = document.querySelector(".slideTitle");
+    slideTitle.innerText = picture.title;
+    slideArray = JSON.parse(window.localStorage.getItem("slideArray"));
+  }
+
+  contentDiv.addEventListener("click", () => showImageInModal(picture, album));
+>>>>>>> Stashed changes
 
   const img = document.createElement("img");
   img.src = url;
