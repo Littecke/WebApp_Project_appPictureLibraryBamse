@@ -35,7 +35,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 function showLibrary() {
-  slideBtn.hidden=true;
+  slideBtn.hidden = true;
   const div = document.createElement("div");
   div.className = "FlexWrap FlexWrapAlbums";
 
@@ -55,8 +55,7 @@ function showLibrary() {
 }
 
 function showAlbum(album) {
-
-  slideBtn.hidden= false;
+  slideBtn.hidden = false;
 
   const content = document.querySelector(".content");
   content.innerHTML = "";
@@ -103,9 +102,7 @@ function showImageInModal(picture, album) {
   modalh2.innerText = picture.title;
 
   saveListener = modalh2.addEventListener("input", (event) => {
-    console.log("BLERLBLBELBELBE");
     picture.title = event.target.innerText;
-    console.log(event.target.innerText);
   });
 
   const url = `${album.path}/${picture.imgHiRes}`;
@@ -182,44 +179,46 @@ function renderImage(picture, album) {
   //hämta bildens id och lägger i checkboxen
   checkBox.dataset.id = picture.id;
   checkBox.id = `checkbox-${picture.id}`;
+  const slideArray = JSON.parse(window.localStorage.getItem("slideArray"));
+  console.log("slsidde", slideArray);
+  checkBox.checked = slideArray.includes(picture.id) ? true : false;
 
   checboxDiv.appendChild(checkBox);
 
-  const checkboxLabel = document.createElement("label");
-  checkboxLabel.innerText = "Add to slideshow";
-  checkboxLabel.htmlFor = `checkbox-${picture.id}`;
-  checboxDiv.appendChild(checkboxLabel);
+  const checkBoxLabel = document.createElement("label");
+  checkBoxLabel.innerText = "Add to slideshow";
+  checkBoxLabel.htmlFor = `checkbox-${picture.id}`;
+  checboxDiv.appendChild(checkBoxLabel);
 
   // skapa en event listener som lyssnar på "change" på checkboxen
   checkBox.addEventListener("change", (event) => {
+    let slideArray = JSON.parse(window.localStorage.getItem("slideArray")); //JSonParse
+    if (typeof slideArray === "undefined" || slideArray == null) {
+      slideArray = [];
+    }
+    // när man klickar på den så vill ni lägga till eller ta bort pictureid i slideshow-arrayen
+    if (checkBox.checked == true) {
+      // lägger till pictureId till array
+      slideArray.push(picture.id);
+      console.log(slideArray);
+    } else if (checkBox.checked == false) {
+      slideArray = slideArray.filter(function (value) {
+        return value != picture.id;
+      });
 
-let slideArray = JSON.parse(window.localStorage.getItem('slideArray'));     //JSonParse
-  if(typeof slideArray === 'undefined' || slideArray == null) {
-slideArray = [];
+      console.log(slideArray);
+    }
+    window.localStorage.setItem("slideArray", JSON.stringify(slideArray));
+  });
+
+  slideBtn.addEventListener("click", () => showSlideshow());
+
+  // skapa en funktion för att hämta slideshow-arrayen från local storage
+  function showSlideshow() {
+    const slideTitle = document.querySelector(".slideTitle");
+    slideTitle.innerText = picture.title;
+    slideArray = JSON.parse(window.localStorage.getItem("slideArray"));
   }
-  // när man klickar på den så vill ni lägga till eller ta bort pictureid i slideshow-arrayen
-if (checkBox.checked == true) {
-  // lägger till pictureId till array
-  slideArray.push(picture.id);
-  console.log(slideArray);
-}
-else if (checkBox.checked == false) {
-  slideArray.pop(picture.id);
-  console.log(slideArray);
-}
-window.localStorage.setItem('slideArray', JSON.stringify(slideArray));   
-});
-
-slideBtn.addEventListener("click", () => showSlideshow());
-
-// skapa en funktion för att hämta slideshow-arrayen från local storage
-function showSlideshow () {
-const slideTitle = document.querySelector(".slideTitle");
-slideTitle.innerText=picture.title;
- slideArray = JSON.parse(window.localStorage.getItem('slideArray'));
-
-
-}
 
   contentDiv.addEventListener("click", () => showImageInModal(picture, album));
 

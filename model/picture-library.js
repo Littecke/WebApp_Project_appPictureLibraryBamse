@@ -1,43 +1,60 @@
-//Just to ensure we force js into strict mode in HTML scrips - we don't want any sloppy code
-'use strict';  // Try without strict mode
-
-// To use ES6 modules, export and import, you need to create a package.json and set the type ot module.
-// - open a terminal in your script directory and type: npm init -y
-// - open the package file and add the line at the top: "type":"module", 
-
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
-
-import * as proto from './picture-album-prototypes.js';
-import * as tmpl from './picture-album-templates.js';
+import * as proto from "./picture-album-prototypes.js";
+import * as tmpl from "./picture-album-templates.js";
 
 class pictureLibrary {
+  constructor() {
+    this.albums = [{}];
+  }
 
-    constructor() {
+  findAlbumByTitle(title) {
+    return this.albums.find(
+      (album) => album.title.toLowerCase() === title.toLowerCase()
+    );
+  }
 
-        this.albums = [{}];
+  findAlbumById(id) {
+    return this.albums.find((album) => album.id === id);
+  }
+
+  static findPictureById(id, albums) {
+    // albums.find((album) =>
+    //   album.pictures.find((picture) => picture.id == id)
+    // );
+
+    for (const album of albums) {
+      const pic = album.pictures.find((picture) => picture.id == id);
+
+      if (pic) {
+        return pic;
+      }
     }
+  }
 
-    findAlbumByTitle(title) { return this.albums.find((album) => album.title.toLowerCase() === title.toLowerCase()); };
-    findAlbumById(id) { return this.albums.find((album) => album.id === id); };
-
-    static createFromTemplate() {
-        const library = new pictureLibrary();
-        library.albums = tmpl.albumsTemplate.NASA();
-
-        return library;
+  static findAlbumByPictureId(id, albums) {
+    for (const album of albums) {
+      if (album.pictures.find((picture) => picture.id === id)) {
+        return album;
+      }
     }
+  }
 
-    //used when reading from JSON
-    static attachPrototypes(library) {
-        for (const album of library.albums) {
-            Object.setPrototypeOf(album, proto.prototypeAlbum);
+  static createFromTemplate() {
+    const library = new pictureLibrary();
+    library.albums = tmpl.albumsTemplate.NASA();
 
-            for (const picture of album.pictures) {
-                Object.setPrototypeOf(picture, proto.prototypePicture);
-            }
-        }
+    return library;
+  }
+
+  //used when reading from JSON
+  static attachPrototypes(library) {
+    for (const album of library.albums) {
+      Object.setPrototypeOf(album, proto.prototypeAlbum);
+
+      for (const picture of album.pictures) {
+        Object.setPrototypeOf(picture, proto.prototypePicture);
+      }
     }
+  }
 }
 
 //debugging only
@@ -70,4 +87,4 @@ console.log(`album ${album.title} with id: ${album.id} has ${album.pictures.leng
 console.groupEnd();
 */
 
-export {pictureLibrary};
+export { pictureLibrary };

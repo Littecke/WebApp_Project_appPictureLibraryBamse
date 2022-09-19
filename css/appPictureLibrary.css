@@ -122,7 +122,7 @@ h1::before {
 
 #slideBtn {
   text-align: center;
-  margin-left:40%;
+  margin-left: 40%;
   height: auto;
   border-radius: 10px;
   font-weight: bold;
@@ -235,7 +235,6 @@ div .slides {
 }
 */
 
-
 .rating {
   display: flex;
   justify-content: center;
@@ -270,4 +269,24 @@ div .slides {
 }
 #post:hover {
   background-color: rgb(179, 240, 12);
+}
+
+.slideshowButton {
+  margin: 0 auto;
+  border: 1px solid #000;
+  padding: 10px;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 20px;
+  border-radius: 50px;
+  display: block;
+  width: 220px;
+}
+
+.slideshowButton:hover {
+  border-color: pink;
+  color: #000;
+  background-color: pink;
 }
