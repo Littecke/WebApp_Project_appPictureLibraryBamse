@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #f3ff58;
+  background-color: plum;
   font-family: "Oswald", sans-serif;
   background-size: cover;
   color: black;
@@ -13,13 +13,13 @@ h1 {
 }
 
 .img-container {
-  width: 60%;
+  width: 50%;
   height: 80vh;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  background-attachment: fixed;
-  border: 0.5rem solid #fff700;
+  background-attachment: scroll;
+  border: 0.5rem solid plum;
   border-radius: 0.5rem;
   position: relative;
   margin: 4rem auto;
