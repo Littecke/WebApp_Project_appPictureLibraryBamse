@@ -179,9 +179,14 @@ function renderImage(picture, album) {
   //hämta bildens id och lägger i checkboxen
   checkBox.dataset.id = picture.id;
   checkBox.id = `checkbox-${picture.id}`;
-  const slideArray = JSON.parse(window.localStorage.getItem("slideArray"));
-  console.log("slsidde", slideArray);
+
+  let slideArray = JSON.parse(window.localStorage.getItem("slideArray"));
+
+  if (typeof slideArray === "undefined" || slideArray == null) {
+    slideArray = [];
+  }
   checkBox.checked = slideArray.includes(picture.id) ? true : false;
+  console.log("slsidde", slideArray);
 
   checboxDiv.appendChild(checkBox);
 
