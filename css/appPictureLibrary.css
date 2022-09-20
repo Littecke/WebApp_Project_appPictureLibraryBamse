@@ -273,7 +273,7 @@ div .slides {
 
 .slideshowButton {
   margin: 0 auto;
-  border: 1px solid #000;
+  border: 2px solid pink;
   padding: 10px;
   font-size: 20px;
   background-color: rgba(0, 0, 0, 0.8);
@@ -283,6 +283,8 @@ div .slides {
   border-radius: 50px;
   display: block;
   width: 220px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .slideshowButton:hover {
