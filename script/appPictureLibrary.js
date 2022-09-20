@@ -35,7 +35,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 function showLibrary() {
-  slideBtn.hidden = true;
+  //slideBtn.hidden = true;
   const div = document.createElement("div");
   div.className = "FlexWrap FlexWrapAlbums";
 
@@ -55,7 +55,7 @@ function showLibrary() {
 }
 
 function showAlbum(album) {
-  slideBtn.hidden = false;
+  // slideBtn.hidden = false;
 
   const content = document.querySelector(".content");
   content.innerHTML = "";
@@ -211,14 +211,14 @@ function renderImage(picture, album) {
     window.localStorage.setItem("slideArray", JSON.stringify(slideArray));
   });
 
-  slideBtn.addEventListener("click", () => showSlideshow());
+  // slideBtn.addEventListener("click", () => showSlideshow());
 
   // skapa en funktion för att hämta slideshow-arrayen från local storage
-  function showSlideshow() {
-    const slideTitle = document.querySelector(".slideTitle");
-    slideTitle.innerText = picture.title;
-    slideArray = JSON.parse(window.localStorage.getItem("slideArray"));
-  }
+  //function showSlideshow() {
+  // const slideTitle = document.querySelector(".slideTitle");
+  // slideTitle.innerText = picture.title;
+  //  slideArray = JSON.parse(window.localStorage.getItem("slideArray"));
+  // }
 
   contentDiv.addEventListener("click", () => showImageInModal(picture, album));
 
