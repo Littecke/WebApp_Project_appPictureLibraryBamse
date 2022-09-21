@@ -16,7 +16,7 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 675px) {
  .modalh2 {
   color:black;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -24,7 +24,7 @@
  .modalComments {
   padding: 10px;
   font-style: italic;
-  color:darkblue;
+  color:white;
  }
  .windowModal {
   padding-left: 5px;
@@ -32,14 +32,11 @@
   position: relative;
   padding: 5px;
  }
- .windowModalContent {
-  flex: 1 1 auto;
+ #editSave {
   padding: 10px;
 }
-.modalRating {
-  padding-bottom: 10px;
 }
-}
+
 
 #editSave {
   background-color: pink;
@@ -69,18 +66,19 @@
 .windowModalHeader {
   display: flex;
   flex-direction: row;
-  padding: 20px;
+  padding: 5px;
   flex: 0 0 40px;
 }
 
 .windowModalContent {
   z-index: 2;
   flex: 1 1 auto;
-  padding: 10px;
+  padding: 5px;
+  text-align: center;
 }
 
 .windowModalContentImage {
-  padding: 10px;
+  padding: 5px;
   max-width: 100%;
   max-height: 500px;
 }
