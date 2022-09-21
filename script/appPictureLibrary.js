@@ -200,7 +200,7 @@ function renderImage(picture, album) {
     if (checkBox.checked == true) {
       // adds checked image to array
       slideArray.push(picture.id);
-      console.log(slideArray);
+
       // in unchech, remove image from array
     } else if (checkBox.checked == false) {
       slideArray = slideArray.filter(function (value) {
