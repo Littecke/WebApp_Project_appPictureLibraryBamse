@@ -41,6 +41,7 @@ h1::before {
   transform: translateX(-50%);
   animation: animate 4s linear infinite;
 }
+
 @keyframes animate {
   0% {
     width: 100px;
@@ -291,4 +292,19 @@ div .slides {
   border-color: pink;
   color: #000;
   background-color: pink;
+}
+@media screen and (max-width: 800px) {
+  h1 {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .FlexItem {
+    width: 200px;
+  }
+
+  .FlexItem .title {
+    font-size: 20px;
+  }
 }

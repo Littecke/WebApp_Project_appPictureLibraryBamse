@@ -95,6 +95,17 @@ h1::before {
   animation: animate 4s linear infinite;
 }
 
+@media screen and (max-width: 800px) {
+  h1 {
+    font-size: 25px;
+  }
+
+  .img-container {
+    width: 50%;
+    height: 40vh;
+  }
+}
+
 @keyframes animate {
   0% {
     width: 100px;
