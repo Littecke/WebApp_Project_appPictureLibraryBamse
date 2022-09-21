@@ -8,9 +8,10 @@ let library; //Global varibale, Loaded async from the current server in window.l
 window.addEventListener("DOMContentLoaded", async () => {
   library = await pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
 
-  // hämta alla slideshow-bilder från local storage
+  // get all slideshow-images from local storage
   const pictures = JSON.parse(localStorage.getItem("slideArray"));
 
+  // create button related to slideshow
   const buttons = document.querySelectorAll(".btn");
   const imgDiv = document.querySelector(".img-container");
   const titleDiv = document.querySelector(".title");
@@ -19,9 +20,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   let counter = 0;
 
-  // sätt den första bilden som bakgrund i slideshown
+  // set first image as background in slideshow 
   setBackgroundImage(counter);
 
+  // event listener for prev/next buttons
   buttons.forEach(function (button) {
     button.addEventListener("click", function (event) {
       if (event.target.classList.contains("btn-left")) {
@@ -36,45 +38,45 @@ window.addEventListener("DOMContentLoaded", async () => {
         }
       }
 
-      // sätt rätt bild som bakgrund i slideshowen
+      // sets current image as background in slideshow
       setBackgroundImage(counter);
     });
   });
 
+  // if no image in slideshow - show message from showMarting function
   function setBackgroundImage(index) {
     if (pictures.length <= 0) {
       return showMartin();
     }
 
-    // hämta bildens index från slideshow-arrayen
     const id = pictures[index];
 
+// if no index of picture return to where??
     const picture = pictureLibraryBrowser.findPictureById(id, library.albums);
     if (!picture) {
       return;
     }
-
+ // get index of image from slideshow array
     const album = pictureLibraryBrowser.findAlbumByPictureId(
       picture.id,
       library.albums
     );
-
-    console.log("findade album by id", picture.id, album);
-
+      // if no album exists return tooo
     if (!album) {
       return;
     }
 
+     // search image in album and...
     const bg = `url('${album.path}/${picture.imgHiRes}')`;
 
-    console.log(bg);
-
+    // ... set the current image to background with title, comment 
     imgDiv.style.backgroundImage = bg;
     descDiv.innerText = picture.comment;
     titleDiv.innerText = picture.title;
     albumTitleDiv.innerText = album.title;
   }
 
+// message to show when no images to show 
   function showMartin() {
     imgDiv.style.backgroundImage = "";
     descDiv.innerText = "Du måste välja en bild till slideshown först.";
