@@ -120,6 +120,12 @@ h2 {
   font-size: 1.4rem;
 }
 
+.container {
+  margin: 0 auto;
+  padding: 4rem 4rem 8rem 4rem;
+  max-width: 1000px;
+}
+
 @media screen and (max-width: 1200px) {
   h1 {
     font-size: 2.8rem;
@@ -146,6 +152,10 @@ h2 {
   .navButton {
     padding: 0.9rem;
     font-size: 1.2rem;
+  }
+
+  .img-container {
+    height: 80vh;
   }
 }
 
@@ -208,6 +218,11 @@ h2 {
     font-size: 0.9rem;
     margin-bottom: 3rem;
   }
+
+  .container {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
 }
 
 @keyframes animate {
@@ -222,10 +237,4 @@ h2 {
     width: 100px;
     background-color: purple;
   }
-}
-
-.container {
-  margin: 0 auto;
-  padding: 4rem 4rem 8rem 4rem;
-  max-width: 1000px;
 }
