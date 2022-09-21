@@ -166,7 +166,6 @@ h1::before {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-
 .rating {
   display: flex;
   justify-content: center;
@@ -228,7 +227,7 @@ h1::before {
   h1 {
     font-size: 25px;
   }
-  .slideshowButton{
+  .slideshowButton {
     width: 50%;
   }
   @keyframes animate {
@@ -243,14 +242,15 @@ h1::before {
       width: 100px;
       background-color: blueviolet;
     }
-}
-
-@media screen and (max-width: 790px) {
-  .FlexItem {
-    width: 200px;
   }
 
-  .FlexItem .title {
-    font-size: 20px;
+  @media screen and (max-width: 790px) {
+    .FlexItem {
+      width: 200px;
+    }
+
+    .FlexItem .title {
+      font-size: 20px;
+    }
   }
 }
