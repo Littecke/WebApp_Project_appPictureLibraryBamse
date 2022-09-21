@@ -15,6 +15,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   const imgDiv = document.querySelector(".img-container");
   const titleDiv = document.querySelector(".title");
   const descDiv = document.querySelector(".desc");
+  const albumTitleDiv = document.querySelector(".albumTitle");
 
   let counter = 0;
 
@@ -71,6 +72,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     imgDiv.style.backgroundImage = bg;
     descDiv.innerText = picture.comment;
     titleDiv.innerText = picture.title;
+    albumTitleDiv.innerText = album.title;
   }
 
   function showMartin() {
