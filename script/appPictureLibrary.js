@@ -7,6 +7,9 @@ import * as lib from "../model/picture-library-browser.js";
 const libraryJSON = "picture-library.json";
 let library; //Global varibale, Loaded async from the current server in window.load event
 
+// Global var for eventlistener
+let saveListener;
+
 // Create modal elements and connect to html code
 let pageContentInModal = document.querySelector(".pageContentInModal");
 let closeBtn = document.querySelector(".windowModalHeader .btnCloseModal");
@@ -14,30 +17,56 @@ let closeBtn = document.querySelector(".windowModalHeader .btnCloseModal");
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
-  //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
   // Eventlistener to closebutton in modal window
   closeBtn.addEventListener("click", () => {
     pageContentInModal.style.display = "none";
   });
 
-  //if you click outside shall close
+  //if you click outside the modal shall close
   window.addEventListener("click", (e) => {
     if (e.target == pageContentInModal) {
       pageContentInModal.style.display = "none";
     }
   });
 
-  // when close or click outside window...
+  // show number of albums
   const counter = document.querySelector("#counter");
   counter.innerHTML = library.albums.length;
 
-  //... show library and amount of albums
+  initModal();
   showLibrary();
 });
 
-// A div with name FlexWrap is created in content
+function initModal() {
+  // Element connected to edit button in html
+  const editBtn = document.querySelector("#editSave");
+
+  // When clicked on edit button in modal we access everyting in modal via parent
+  editBtn.addEventListener("click", (event) => {
+    const parent = event.target.closest(".pageContentInModal");
+
+    // ... title and comment is editable
+    const modalh2 = parent.querySelector(".modalh2");
+    const modalComments = parent.querySelector(".modalComments");
+
+    // if edit is clicked it is possible to edit...
+    if (modalh2.contentEditable == "true") {
+      modalh2.contentEditable = "false";
+      modalComments.contentEditable = "false";
+      event.target.innerText = "Edit";
+    } else {
+      // ... and button text changes to "Done" and changes can no longer be done
+      modalh2.contentEditable = "true";
+      modalComments.contentEditable = "true";
+      event.target.innerText = "Done";
+    }
+  });
+}
+
+// shows a list of all albums
 function showLibrary() {
+  // A div with name FlexWrap is created in content
   const div = document.createElement("div");
   div.className = "FlexWrap FlexWrapAlbums";
 
@@ -54,7 +83,6 @@ function showLibrary() {
 
 // Shows all images in selected album
 function showAlbum(album) {
-
   const content = document.querySelector(".content");
   content.innerHTML = "";
   // created a back button to homepage
@@ -67,12 +95,18 @@ function showAlbum(album) {
   });
 
   content.appendChild(backDiv);
-  // shows title to albums
+  // shows album title
   const titleDiv = document.createElement("div");
   titleDiv.innerHTML = album.title;
   titleDiv.className = "album-title";
 
   content.appendChild(titleDiv);
+
+  const commentDiv = document.createElement("div");
+  commentDiv.innerHTML = album.comment;
+  commentDiv.className = "album-comment";
+
+  content.appendChild(commentDiv);
 
   const div = document.createElement("div");
   div.className = "FlexWrap FlexWrapImages";
@@ -85,9 +119,7 @@ function showAlbum(album) {
   }
 }
 
-let saveListener;
-
-// when clicked on a image this function creates content i modal...
+// when clicked on a image this function creates content in modal...
 function showImageInModal(picture, album) {
   const pictureWrapper = document.querySelector(".pictureWrapper");
   pictureWrapper.dataset.id = picture.id;
@@ -101,13 +133,12 @@ function showImageInModal(picture, album) {
 
   const url = `${album.path}/${picture.imgHiRes}`;
 
-  // ... it is presented in a modal
+  // add the image to the modal
   const modalImage = document.createElement("img");
   modalImage.className = `windowModalContentImage`;
   modalImage.dataset.id = picture.id;
   modalImage.src = url;
 
-  // the clicked image is showing
   const divModalImage = document.querySelector(".modalImage");
   divModalImage.innerHTML = "";
   divModalImage.appendChild(modalImage);
@@ -117,38 +148,13 @@ function showImageInModal(picture, album) {
   modalRating.innerHTML = "";
   createRating(picture.id, modalRating);
 
-  // and the images descprition 
+  // and the images description
   const modalComments = document.querySelector(".modalComments");
   modalComments.innerText = picture.comment;
   pageContentInModal.style.display = "block";
-  }
+}
 
-// Element connected to edit button in html
-const editBtn = document.querySelector("#editSave");
-
-// When clicked on edit button in modal we access everyting in modal via parent
-editBtn.addEventListener("click", (event) => {
-  const parent = event.target.closest(".pageContentInModal");
-  // ... title and comment is editable
-  const modalh2 = parent.querySelector(".modalh2");
-  const modalComments = parent.querySelector(".modalComments");
-   
-  // if edit is clicked it is possible to edit...
-  if (modalh2.contentEditable == "true") {
-
-    modalh2.contentEditable = "false";
-    modalComments.contentEditable = "false";
-    event.target.innerText = "Edit";
-  } else {
-   // ... and button text changes to "Done" and changes can no longer be done
-    modalh2.contentEditable = "true";
-    modalComments.contentEditable = "true";
-    event.target.innerText = "Done";
-  }
-});
-
-//Render the images in specific album 
-// creates div that wraps title, comments, image & checkbox
+//Render the image
 function renderImage(picture, album) {
   const url = `${album.path}/${picture.imgLoRes}`;
 
@@ -156,6 +162,7 @@ function renderImage(picture, album) {
   flexItemDiv.className = "pictureWrapper FlexItem";
   flexItemDiv.dataset.id = picture.id;
 
+  // creates div that wraps title, comments, image
   const contentDiv = document.createElement("div");
   contentDiv.className = "pictureContent";
   flexItemDiv.appendChild(contentDiv);
@@ -173,14 +180,14 @@ function renderImage(picture, album) {
   checkBox.dataset.id = picture.id;
   checkBox.id = `checkbox-${picture.id}`;
 
-// searching local storage for an array
+  // get all current picked images for slideshow
   let slideArray = JSON.parse(window.localStorage.getItem("slideArray"));
-  
+
   // not existing - create an array
   if (typeof slideArray === "undefined" || slideArray == null) {
     slideArray = [];
   }
-  // checking if picture.id is checked and not null...
+  // check if picture already was in array, and therefore should be checked
   checkBox.checked = slideArray.includes(picture.id) ? true : false;
 
   checboxDiv.appendChild(checkBox);
@@ -190,28 +197,31 @@ function renderImage(picture, album) {
   checkBoxLabel.htmlFor = `checkbox-${picture.id}`;
   checboxDiv.appendChild(checkBoxLabel);
 
-  // eventlistener listening on change
+  // eventlistener listening on change on checkbox to add or remove
+  // image from slideshow in local storage
   checkBox.addEventListener("change", (event) => {
-    let slideArray = JSON.parse(window.localStorage.getItem("slideArray")); //JSonParse
+    // parse data to object from json string
+    let slideArray = JSON.parse(window.localStorage.getItem("slideArray"));
+    // create empty array if null
     if (typeof slideArray === "undefined" || slideArray == null) {
       slideArray = [];
     }
-    // if checked
+    // if user checked checkbox add it to array
     if (checkBox.checked == true) {
       // adds checked image to array
       slideArray.push(picture.id);
 
-      // in unchech, remove image from array
+      // if user uncheched, remove image from array
     } else if (checkBox.checked == false) {
       slideArray = slideArray.filter(function (value) {
         return value != picture.id;
       });
     }
-    // converts array to it can be read as a string
+    // converts array to string so it can be stored in local storage
     window.localStorage.setItem("slideArray", JSON.stringify(slideArray));
   });
 
-// eventlistener to show image in modal
+  // eventlistener to show image in modal
   contentDiv.addEventListener("click", () => showImageInModal(picture, album));
 
   // creates images, title and comment elements in modal
@@ -239,6 +249,7 @@ function renderImage(picture, album) {
   const imgFlex = document.querySelector(".FlexWrapImages");
   imgFlex.appendChild(flexItemDiv);
 }
+
 // function that creates a star for rating, creates stars five times
 function createRating(pictureId, parent) {
   const ratingDiv = document.createElement("div");
@@ -255,7 +266,8 @@ function createRating(pictureId, parent) {
 
   renderRatingColors(pictureId, rating);
 }
-// creates index rating
+
+// returns a star element
 function createStar(index) {
   const starTemplate = document.createElement("div");
   starTemplate.className = "star fa fa-star";
@@ -267,18 +279,27 @@ function createStar(index) {
 
   return starTemplate;
 }
-// get the rating
+
+// get the rating from local storage
 function getRating(pictureId) {
   const ratingVarName = "rating-" + pictureId;
 
-  return window.localStorage.getItem(ratingVarName);
+  let rating = window.localStorage.getItem(ratingVarName);
+
+  if (typeof rating === "undefined" || rating == null) {
+    rating = 0;
+  }
+
+  return rating;
 }
-// sets the rating
+
+// sets the rating in localstorge
 function setRating(pictureId, rating) {
   const ratingVarName = "rating-" + pictureId;
 
   return window.localStorage.setItem(ratingVarName, rating);
 }
+
 // user clicks on stars to rate image
 function ratePicture(starElement) {
   console.log(starElement.dataset.rating);
@@ -298,7 +319,8 @@ function ratePicture(starElement) {
   setRating(pictureId, rating);
   renderRatingColors(pictureId, rating);
 }
-// clicked stars is coloured
+
+// as many stars as the rating is high is colored
 function renderRatingColors(pictureId, rating) {
   const ratingElement = document.querySelector(
     `.rating[data-id='${pictureId}']`

@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   let counter = 0;
 
-  // set first image as background in slideshow 
+  // set first image as background in slideshow
   setBackgroundImage(counter);
 
   // event listener for prev/next buttons
@@ -51,32 +51,36 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const id = pictures[index];
 
-// if no index of picture return to where??
+    // find the picture from pictureid
     const picture = pictureLibraryBrowser.findPictureById(id, library.albums);
+
+    // if there's no picture with that id, return
     if (!picture) {
       return;
     }
- // get index of image from slideshow array
+
+    // get index of image from slideshow array
     const album = pictureLibraryBrowser.findAlbumByPictureId(
       picture.id,
       library.albums
     );
-      // if no album exists return tooo
+
+    // if no album exists return
     if (!album) {
       return;
     }
 
-     // search image in album and...
+    // create full path to picture
     const bg = `url('${album.path}/${picture.imgHiRes}')`;
 
-    // ... set the current image to background with title, comment 
+    // ... set the current image to background with title, comment
     imgDiv.style.backgroundImage = bg;
     descDiv.innerText = picture.comment;
     titleDiv.innerText = picture.title;
     albumTitleDiv.innerText = album.title;
   }
 
-// message to show when no images to show 
+  // message to show when no images to show
   function showMartin() {
     imgDiv.style.backgroundImage = "";
     descDiv.innerText = "Du måste välja en bild till slideshown först.";

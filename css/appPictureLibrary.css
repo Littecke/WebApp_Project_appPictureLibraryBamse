@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
@@ -253,5 +257,4 @@ h1::before {
       font-size: 20px;
     }
   }
-}
 }
