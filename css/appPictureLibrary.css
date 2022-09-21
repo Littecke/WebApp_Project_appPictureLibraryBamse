@@ -231,6 +231,18 @@ h1::before {
   .slideshowButton{
     width: 50%;
   }
+  @keyframes animate {
+    0% {
+      width: 100px;
+    }
+    50% {
+      width: 200px;
+      background-color: blue;
+    }
+    100% {
+      width: 100px;
+      background-color: blueviolet;
+    }
 }
 
 @media screen and (max-width: 790px) {
