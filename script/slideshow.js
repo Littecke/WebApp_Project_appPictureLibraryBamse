@@ -1,4 +1,5 @@
-//import * as proto from './picture-album-prototypes.js';
+"use strict"; // Try without strict mode
+
 import { pictureLibraryBrowser } from "../model/picture-library-browser.js";
 
 const libraryJSON = "picture-library.json";

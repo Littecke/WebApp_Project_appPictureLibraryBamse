@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="./css/appPictureLibrary.css" />
     <link rel="stylesheet" href="./css/modal-window.css" />
 
-    
-
     <script type="module" src="./script/appPictureLibrary.js"></script>
     <link
       rel="stylesheet"
@@ -20,11 +18,11 @@
     <div class="page">
       <div class="container">
         <h1>Our photo gallery with <span id="counter">0</span> albums</h1>
-        <a class="slideshowButton" href="/slideshow.html">To the slideshow</a>
+        <a class="navButton slideshowButton" href="/slideshow.html">To the slideshow 👉</a>
       </div>
       <div class="content">
       </div>
-      </div>
+    </div>
       <div id="modal1" class="pageContentInModal">
         <div class="windowModal">
             <div class="windowModalHeader">
@@ -33,9 +31,9 @@
             </div>
             <div class="windowModalContent">
                 <div class="modalImage"></div>
-                <div class="modalComments" contenteditable="false"></div>
+                <div class="modalComments desc" contenteditable="false"></div>
                 <div class ="modalRating"></div>
-                <button type="button" id="editSave">Edit</button>
+                <button class="navButton" type="button" id="editSave">Edit</button>
             </div>
         </div>
     </div>

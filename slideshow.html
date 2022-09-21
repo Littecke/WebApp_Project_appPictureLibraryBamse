@@ -4,26 +4,29 @@
     <meta charset="utf-8" />
     <title>appPictureLibrary</title>
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="./css/appPictureLibrary.css" />
     <link rel="stylesheet" href="./css/slideshow.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <script type="module" src="/script/slideshow.js"></script>
   </head>
 
   <body>
-    <div class="container">
+    <div class="page">
       <h1>Our cool slideshow from space</h1>
-      <a class="navButton" href="/index.html">Back to gallery</a>
+      <a class="navButton" href="/index.html">👈 Back to gallery</a>
 
       <div class="img-container">
-        <a class="btn btn-left"><i class="fa fa-caret-square-o-left"></i></a>
-        <a class="btn btn-right"><i class="fa fa-caret-square-o-right"></i></a>
+        <a class="btn btn-left"><i class="fa fa-arrow-left"></i></a>
+        <a class="btn btn-right"><i class="fa fa-arrow-right"></i></a>
       </div>
-      <h3 class="albumTitle"></h3>
-      <h2 class="title"></h2>
-      <div class="desc"></div>
+      <div class="info box">
+        <h3 class="albumTitle"></h3>
+        <h2 class="title"></h2>
+        <div class="desc"></div>
+      </div>
     </div>
-    <script type="module" src="/script/slideshow.js"></script>
   </body>
 </html>

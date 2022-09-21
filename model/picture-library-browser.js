@@ -1,40 +1,36 @@
 //Just to ensure we force js into strict mode in HTML scrips - we don't want any sloppy code
-'use strict';  // Try without strict mode
+"use strict"; // Try without strict mode
 
-import * as proto from './picture-album-prototypes.js';
-import * as lib from './picture-library.js';
+import * as proto from "./picture-album-prototypes.js";
+import * as lib from "./picture-library.js";
 
 const libraryDir = "app-data/library";
-const libraryJSON ="picture-library.json";
+const libraryJSON = "picture-library.json";
 
 class pictureLibraryBrowser extends lib.pictureLibrary {
+  constructor() {
+    super();
+  }
 
-    constructor() {
-        super();
-    }
+  static async fetchJSON(file) {
+    try {
+      const url = `../${libraryDir}/${file}`;
+      const response = await fetch(url);
+      if (response.status >= 200 && response.status < 400) {
+        const library = await response.json();
+        lib.pictureLibrary.attachPrototypes(library);
 
-    static async fetchJSON(file) {
-        try {
-            const url = `../${libraryDir}/${file}`;
-            const response = await fetch(url);
-            if (response.status >= 200 && response.status < 400) {
-    
-                const library = await response.json();
-                lib.pictureLibrary.attachPrototypes(library);
- 
-                return library;
-    
-            } else {
-                // Handle server error
-                // example: INTERNAL SERVER ERROR: 500 error
-                console.log(`${response.statusText}: ${response.status} error`);
-            }
-        } catch (error) {
-    
-            alert('Failed to recieved data from server');
-            console.log('Failed to recieved data from server');
-        }
+        return library;
+      } else {
+        // Handle server error
+        // example: INTERNAL SERVER ERROR: 500 error
+        console.log(`${response.statusText}: ${response.status} error`);
+      }
+    } catch (error) {
+      alert("Failed to recieved data from server");
+      console.log("Failed to recieved data from server");
     }
+  }
 }
 
 // debugging only
@@ -63,4 +59,4 @@ class pictureLibraryBrowser extends lib.pictureLibrary {
 })();
 */
 
-export {pictureLibraryBrowser};
+export { pictureLibraryBrowser };

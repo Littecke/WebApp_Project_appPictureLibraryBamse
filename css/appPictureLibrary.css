@@ -8,56 +8,17 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: indigo;
-  font-family: "Oswald", sans-serif;
+  font-family: monospace;
   background: url(../app-data/library/pictures/background/stars.jpg) no-repeat
     center center fixed;
   background-size: cover;
   color: white;
+  line-height: 1.4;
 }
 
-.page {
-  padding: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.container {
-  width: 100%;
-  text-align: center;
-}
-
-h1 {
-  text-align: center;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 35px;
-  position: relative;
-  margin: 40px 0;
-  color: white;
-}
-h1::before {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 3px;
-  background-color: blueviolet;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: animate 4s linear infinite;
-}
-
-@keyframes animate {
-  0% {
-    width: 100px;
-  }
-  50% {
-    width: 200px;
-    background-color: orangered;
-  }
-  100% {
-    width: 100px;
-    background-color: crimson;
-  }
+button,
+input {
+  font-family: monospace;
 }
 
 .photo-gallery {
@@ -84,45 +45,54 @@ h1::before {
 }
 
 .FlexWrap {
-  font-family: "Oswald", sans-serif;
   height: 100%;
   width: 100%;
-
   display: flex;
   flex-wrap: wrap; /* test with wrap nowrap */
-  align-items: center; /* alignment along cross axis - center flex-start flex-end */
   justify-content: space-evenly; /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
+  gap: 2rem;
 }
 
 .FlexItem {
-  padding: 10px;
-  width: 200px; /* fixed size will demonstrate the wrap */
-  margin: 10px;
   cursor: pointer;
+  background-color: black;
+  border-radius: 20px;
+  border: 2px solid pink;
+  overflow: hidden;
+  flex: 1;
+  max-width: 25%;
+  min-width: 250px;
+  animation: border-color-changer 4s linear infinite;
 }
 
-.FlexWrapAlbums .FlexItem:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: scale(1.3);
-  background-color: rgb(98, 1, 167);
-  transition: 0.5s ease-in-out;
-  opacity: 0.9;
+.FlexItem:hover {
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  transform: scale(1.05);
+  /* background-color: rgb(98, 1, 167); */
+  transition: 0.25s cubic-bezier(0.2, 0.8, 0.3, 2.5);
+  border-color: #fff;
 }
 
-.FlexItem img {
+.FlexItem .img {
   width: 100%;
-  height: 100%;
+  height: 250px;
   background-color: black;
   object-fit: cover;
+  border-radius: 10px 10px 0px 0px;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  background-size: cover;
 }
 
 .FlexItem .title {
   color: #fff;
   text-align: center;
-  padding: 4px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.2);
-  margin-top: 5px;
+  padding: 15px;
+  font-size: 16px;
 }
 
 #slideBtn {
@@ -135,10 +105,7 @@ h1::before {
 }
 
 .FlexItem .commentWrapper {
-  padding: 10px;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
-  margin-top: 5px;
+  padding: 15px;
 }
 
 .FlexItem .comment {
@@ -151,18 +118,32 @@ h1::before {
   overflow: hidden;
 }
 
+.checkboxWrapper {
+  text-align: center;
+  padding: 10px 0px 25px 0px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: pink;
+}
+
+.checkboxWrapper input {
+  vertical-align: middle;
+}
+
+.checkboxWrapper label {
+  display: inline-block;
+  padding-left: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.checkboxWrapper:hover label {
+  color: plum;
+}
+
 .album-title {
   font-size: 25px;
   color: #fff;
-}
-
-@keyframes round {
-  25% {
-    opacity: 1;
-  }
-  40% {
-    opacity: 0;
-  }
 }
 
 .prev:hover,
@@ -182,9 +163,9 @@ h1::before {
 .rating .star.checked {
   color: orange;
 }
+
 .back {
   color: white;
-  font-family: "Oswald", sans-serif;
   font-size: 20px;
   text-align: left;
   padding: 20px 10px;
@@ -202,59 +183,256 @@ h1::before {
   border: none;
   border-radius: 5px;
 }
+
 #post:hover {
   background-color: rgb(179, 240, 12);
 }
 
-.slideshowButton {
+.navButton {
+  box-shadow: 10px 10px 35px rgba(0, 0, 0, 0.2);
   margin: 0 auto;
-  border: 2px solid pink;
-  padding: 10px;
-  font-size: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  border: 3px solid plum;
+  background-color: black;
+  padding: 1rem;
+  font-size: 1.25rem;
+  color: plum;
   text-decoration: none;
-  margin-bottom: 20px;
-  border-radius: 50px;
+  margin-bottom: 2rem;
+  border-radius: 4rem;
   display: block;
-  width: 220px;
+  max-width: 220px;
   text-align: center;
   font-weight: bold;
+  margin-bottom: 4rem;
 }
 
-.slideshowButton:hover {
+.navButton:hover {
+  border-color: black;
+  color: black;
+  background-color: plum;
+}
+
+.navButton.slideshowButton {
+  border-color: pink;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: pink;
+}
+
+.navButton.slideshowButton:hover {
   border-color: pink;
   color: #000;
   background-color: pink;
 }
-@media screen and (max-width: 800px) {
+
+.page {
+  margin: 0 auto;
+  padding: 4rem 4rem 8rem 4rem;
+  max-width: 1200px;
+}
+
+h1 {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 35px;
+  position: relative;
+  margin: 40px 0;
+  color: white;
+}
+
+h1::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 3px;
+  background-color: blueviolet;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: animate 4s linear infinite;
+}
+
+h3 {
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.desc {
+  font-size: 1.4rem;
+}
+
+.box {
+  background-color: black;
+  border: 2px solid plum;
+  padding: 3rem;
+  border-radius: 20px;
+}
+
+.box.album-info {
+  margin-bottom: 2rem;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+@media screen and (max-width: 1200px) {
   h1 {
-    font-size: 25px;
-  }
-  .slideshowButton {
-    width: 50%;
-  }
-  @keyframes animate {
-    0% {
-      width: 100px;
-    }
-    50% {
-      width: 200px;
-      background-color: blue;
-    }
-    100% {
-      width: 100px;
-      background-color: blueviolet;
-    }
+    font-size: 2.8rem;
   }
 
-  @media screen and (max-width: 790px) {
-    .FlexItem {
-      width: 200px;
-    }
+  h2 {
+    font-size: 2.25rem;
+  }
 
-    .FlexItem .title {
-      font-size: 20px;
-    }
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  .desc {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    border-width: 0.18rem;
+    font-size: 2.2rem;
+    padding: 1.3rem 1.8rem;
+  }
+
+  .navButton {
+    padding: 0.9rem;
+    font-size: 1.2rem;
+  }
+
+  .img-container {
+    height: 80vh;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  .desc {
+    font-size: 1rem;
+  }
+
+  .btn {
+    border-width: 0.15rem;
+    font-size: 2rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .navButton {
+    padding: 0.8rem;
+    font-size: 1.1rem;
+  }
+
+  .FlexItem {
+    max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  h1 {
+    font-size: 2rem;
+    line-height: 1.25;
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+  }
+
+  h3 {
+    font-size: 0.9rem;
+  }
+
+  .desc {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    border-width: 0.15rem;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .page {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .FlexItem {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .FlexItem .title {
+    font-size: 20px;
+  }
+
+  .navButton {
+    min-width: 80%;
+  }
+}
+
+@keyframes animate {
+  0% {
+    width: 100px;
+    background-color: blueviolet;
+  }
+  50% {
+    width: 200px;
+    background-color: pink;
+  }
+  100% {
+    width: 100px;
+    background-color: blueviolet;
+  }
+}
+
+@keyframes border-color-changer {
+  0% {
+    border-color: plum;
+  }
+  50% {
+    border-color: purple;
+  }
+  75% {
+    border-color: pink;
+  }
+  100% {
+    border-color: plum;
+  }
+}
+
+@keyframes background-color-changer {
+  0% {
+    background-color: plum;
+  }
+  50% {
+    background-color: purple;
+  }
+  75% {
+    background-color: pink;
+  }
+  100% {
+    background-color: plum;
   }
 }

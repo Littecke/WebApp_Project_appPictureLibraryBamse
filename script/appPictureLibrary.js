@@ -2,7 +2,7 @@
 "use strict"; // Try without strict mode
 
 //import * as proto from './picture-album-prototypes.js';
-import * as lib from "../model/picture-library-browser.js";
+import { pictureLibraryBrowser } from "../model/picture-library-browser.js";
 
 const libraryJSON = "picture-library.json";
 let library; //Global varibale, Loaded async from the current server in window.load event
@@ -16,7 +16,7 @@ let closeBtn = document.querySelector(".windowModalHeader .btnCloseModal");
 
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
-  library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
+  library = await pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
 
   // Eventlistener to closebutton in modal window
   closeBtn.addEventListener("click", () => {
@@ -87,7 +87,7 @@ function showAlbum(album) {
   content.innerHTML = "";
   // created a back button to homepage
   const backDiv = document.createElement("div");
-  backDiv.className = "back";
+  backDiv.className = "back navButton";
   backDiv.innerHTML = "Back to library 👈";
 
   backDiv.addEventListener("click", (event) => {
@@ -95,22 +95,27 @@ function showAlbum(album) {
   });
 
   content.appendChild(backDiv);
-  // shows album title
-  const titleDiv = document.createElement("div");
-  titleDiv.innerHTML = album.title;
-  titleDiv.className = "album-title";
 
-  content.appendChild(titleDiv);
+  const infoDiv = document.createElement("div");
+  infoDiv.className = "album-info box";
+
+  // shows album title
+  const titleDiv = document.createElement("h2");
+  titleDiv.innerHTML = album.title;
+  titleDiv.className = "album-title title";
+
+  infoDiv.appendChild(titleDiv);
 
   const commentDiv = document.createElement("div");
   commentDiv.innerHTML = album.comment;
-  commentDiv.className = "album-comment";
+  commentDiv.className = "album-comment desc";
 
-  content.appendChild(commentDiv);
+  infoDiv.appendChild(commentDiv);
 
   const div = document.createElement("div");
   div.className = "FlexWrap FlexWrapImages";
 
+  content.appendChild(infoDiv);
   content.appendChild(div);
 
   // render images in each album
@@ -169,7 +174,7 @@ function renderImage(picture, album) {
 
   // create checkbox for slideshow
   const checboxDiv = document.createElement("div");
-  checboxDiv.className = "chechboxWrapper";
+  checboxDiv.className = "checkboxWrapper";
   flexItemDiv.appendChild(checboxDiv);
 
   const checkBox = document.createElement("input");
@@ -225,8 +230,9 @@ function renderImage(picture, album) {
   contentDiv.addEventListener("click", () => showImageInModal(picture, album));
 
   // creates images, title and comment elements in modal
-  const img = document.createElement("img");
-  img.src = url;
+  const img = document.createElement("div");
+  img.className = "img";
+  img.style.backgroundImage = `url("${url}")`;
   contentDiv.appendChild(img);
 
   const titleDiv = document.createElement("div");
@@ -350,8 +356,10 @@ function renderAlbumImage(album) {
   // event listener for clicked thumbnail that shows whole album
   div.addEventListener("click", () => showAlbum(album));
 
-  const img = document.createElement("img");
-  img.src = src;
+  const img = document.createElement("div");
+  img.className = "img";
+  img.style.backgroundImage = `url("${src}")`;
+
   div.appendChild(img);
 
   const titleDiv = document.createElement("div");

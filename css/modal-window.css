@@ -17,22 +17,23 @@
 }
 
 @media screen and (max-width: 675px) {
- .modalh2 {
-  color:black;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
- } 
- #editSave {
-  padding: 10px;
-  font-style: italic;
-  font-weight: bold;
+  .modalh2 {
+    color: black;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
+  #editSave {
+    font-style: italic;
+    font-weight: bold;
+  }
 }
 
-}
 #editSave {
-  background-color: pink;
+  background-color: 
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  float: left;
+  margin: 0 auto;
 }
+
 [contenteditable="true"] {
   color: white;
   border-bottom: 2px dotted black;
@@ -41,9 +42,9 @@
 
 .windowModal {
   position: relative;
-  left: 15%;
-  top: 15%;
-  width: 70%;
+  left: 10%;
+  top: 10%;
+  width: 80%;
   height: 80%;
   display: flex;
   flex-direction: column;
@@ -52,24 +53,28 @@
   animation-name: showModal;
   animation-duration: 1s;
   overflow-y: scroll;
+  border-radius: 20px;
+  border: 3px solid #fff;
+  animation: background-color-changer 7s linear infinite;
 }
 
 .modalRating {
-  padding-top: 10px;
+  padding: 3vmin;
 }
 
 .windowModalHeader {
   display: flex;
   flex-direction: row;
-  padding: 5px;
   flex: 0 0 40px;
+  padding: 5vmin;
+  padding-bottom: 0;
 }
 
 .windowModalContent {
   z-index: 2;
   flex: 1 1 auto;
-  padding: 5px;
   text-align: center;
+  padding: 5vmin;
 }
 
 .windowModalContentImage {
@@ -90,11 +95,12 @@
   color: darkgray;
 }
 
-h2 {
+.windowModalHeader h2 {
   text-align: center;
   display: block;
   width: 100%;
 }
+
 @keyframes showModal {
   from {
     top: -300px;
@@ -106,4 +112,3 @@ h2 {
     opacity: 1;
   }
 }
-
