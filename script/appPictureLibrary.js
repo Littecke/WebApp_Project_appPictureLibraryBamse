@@ -132,6 +132,7 @@ function showImageInModal(picture, album) {
   const modalh2 = document.querySelector(".modalh2");
   modalh2.innerText = picture.title;
 
+  // saves the edited title
   saveListener = modalh2.addEventListener("input", (event) => {
     picture.title = event.target.innerText;
   });
@@ -157,6 +158,11 @@ function showImageInModal(picture, album) {
   const modalComments = document.querySelector(".modalComments");
   modalComments.innerText = picture.comment;
   pageContentInModal.style.display = "block";
+
+  // saves the edites comment
+  saveListener = modalComments.addEventListener("input", (event) => {
+    picture.comment = event.target.innerText;
+  });
 }
 
 //Render the image
