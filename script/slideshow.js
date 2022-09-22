@@ -7,7 +7,8 @@ let library; //Global varibale, Loaded async from the current server in window.l
 
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
-  library = await pictureLibraryBrowser.fetch(); //reading library from JSON on local server
+  //reading library from local storage or json
+  library = await pictureLibraryBrowser.fetch();
 
   // get all slideshow-images from local storage
   const pictures = JSON.parse(localStorage.getItem("slideArray"));

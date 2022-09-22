@@ -10,7 +10,10 @@ let library; //Global varibale, Loaded async from the current server in window.l
 let pageContentInModal = document.querySelector(".pageContentInModal");
 let closeBtn = document.querySelector(".btnCloseModal");
 
+// currently selected album in global var
 let currentAlbum;
+
+// currently selected picture in global var
 let currentPicture;
 
 //use the DOMContentLoaded, or window load event to read the library async and render the images
@@ -38,10 +41,10 @@ window.addEventListener("DOMContentLoaded", async () => {
   showLibrary();
 });
 
+// init button to reset data in local storage
 function initResetButton() {
   const resetBtn = document.querySelector("#reset");
 
-  // When clicked on edit button in modal we access everyting in modal via parent
   resetBtn.addEventListener("click", (event) => {
     pictureLibraryBrowser.clearLocalstorage();
     location.reload();
@@ -66,13 +69,17 @@ function initModal() {
       modalComments.contentEditable = "false";
       event.target.innerText = "Edit";
 
+      // save to the global picture objects values
       currentPicture.comment = modalComments.innerText;
       currentPicture.title = modalh2.innerText;
 
+      // save whole library object in local storage
       pictureLibraryBrowser.save(library);
+
+      // reload current album
       showAlbum(currentAlbum);
     } else {
-      // ... and button text changes to "Done" and changes can no longer be done
+      // ... and button text changes to "Save" and changes can no longer be done
       modalh2.contentEditable = "true";
       modalComments.contentEditable = "true";
       event.target.innerText = "Save";

@@ -16,7 +16,7 @@ class pictureLibraryBrowser extends lib.pictureLibrary {
   static async fetch() {
     let data = JSON.parse(window.localStorage.getItem("library"));
 
-    // not existing - create an array
+    // not existing - fetch from json
     if (typeof data === "undefined" || data == null || !data) {
       data = await pictureLibraryBrowser.loadFromJson();
     }
@@ -24,10 +24,12 @@ class pictureLibraryBrowser extends lib.pictureLibrary {
     return data;
   }
 
+  // save library to local storage
   static async save(data) {
     window.localStorage.setItem("library", JSON.stringify(data));
   }
 
+  // load data from json on computer
   static async loadFromJson() {
     const data = await pictureLibraryBrowser.fetchJSON(libraryJSON);
     pictureLibraryBrowser.save(data);
@@ -35,6 +37,7 @@ class pictureLibraryBrowser extends lib.pictureLibrary {
     return data;
   }
 
+  // clear data in local storage
   static async clearLocalstorage() {
     window.localStorage.removeItem("library");
   }
