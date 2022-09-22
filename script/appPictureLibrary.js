@@ -4,19 +4,18 @@
 //import * as proto from './picture-album-prototypes.js';
 import { pictureLibraryBrowser } from "../model/picture-library-browser.js";
 
-const libraryJSON = "picture-library.json";
 let library; //Global varibale, Loaded async from the current server in window.load event
-
-// Global var for eventlistener
-let saveListener;
 
 // Create modal elements and connect to html code
 let pageContentInModal = document.querySelector(".pageContentInModal");
-let closeBtn = document.querySelector(".windowModalHeader .btnCloseModal");
+let closeBtn = document.querySelector(".btnCloseModal");
+
+let currentAlbum;
+let currentPicture;
 
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
-  library = await pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
+  library = await pictureLibraryBrowser.fetch();
 
   // Eventlistener to closebutton in modal window
   closeBtn.addEventListener("click", () => {
@@ -32,11 +31,22 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   // show number of albums
   const counter = document.querySelector("#counter");
-  counter.innerHTML = library.albums.length;
+  counter.innerHTML = library && library.albums ? library.albums.length : 0;
 
   initModal();
+  initResetButton();
   showLibrary();
 });
+
+function initResetButton() {
+  const resetBtn = document.querySelector("#reset");
+
+  // When clicked on edit button in modal we access everyting in modal via parent
+  resetBtn.addEventListener("click", (event) => {
+    pictureLibraryBrowser.clearLocalstorage();
+    location.reload();
+  });
+}
 
 function initModal() {
   // Element connected to edit button in html
@@ -55,11 +65,17 @@ function initModal() {
       modalh2.contentEditable = "false";
       modalComments.contentEditable = "false";
       event.target.innerText = "Edit";
+
+      currentPicture.comment = modalComments.innerText;
+      currentPicture.title = modalh2.innerText;
+
+      pictureLibraryBrowser.save(library);
+      showAlbum(currentAlbum);
     } else {
       // ... and button text changes to "Done" and changes can no longer be done
       modalh2.contentEditable = "true";
       modalComments.contentEditable = "true";
-      event.target.innerText = "Done";
+      event.target.innerText = "Save";
     }
   });
 }
@@ -83,6 +99,8 @@ function showLibrary() {
 
 // Shows all images in selected album
 function showAlbum(album) {
+  currentAlbum = album;
+
   const content = document.querySelector(".content");
   content.innerHTML = "";
   // created a back button to homepage
@@ -126,16 +144,12 @@ function showAlbum(album) {
 
 // when clicked on a image this function creates content in modal...
 function showImageInModal(picture, album) {
+  currentPicture = picture;
   const pictureWrapper = document.querySelector(".pictureWrapper");
   pictureWrapper.dataset.id = picture.id;
 
   const modalh2 = document.querySelector(".modalh2");
   modalh2.innerText = picture.title;
-
-  // saves the edited title
-  saveListener = modalh2.addEventListener("input", (event) => {
-    picture.title = event.target.innerText;
-  });
 
   const url = `${album.path}/${picture.imgHiRes}`;
 
@@ -158,11 +172,6 @@ function showImageInModal(picture, album) {
   const modalComments = document.querySelector(".modalComments");
   modalComments.innerText = picture.comment;
   pageContentInModal.style.display = "block";
-
-  // saves the edites comment
-  saveListener = modalComments.addEventListener("input", (event) => {
-    picture.comment = event.target.innerText;
-  });
 }
 
 //Render the image

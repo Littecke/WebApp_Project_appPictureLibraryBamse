@@ -280,6 +280,21 @@ h2 {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+#reset {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  background-color: #000;
+  color: #fff;
+  padding: 4px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+#reset:hover {
+  opacity: 1;
+}
+
 @media screen and (max-width: 1200px) {
   h1 {
     font-size: 2.8rem;
